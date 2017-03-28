@@ -18,7 +18,9 @@ A panel that displays a list of FileThis documents
 
     <template>
 
-        <ft-document-panel></ft-document-panel>
+        <div class="layout vertical center">
+            <ft-document-panel id="panel" style="width:700px"></ft-document-panel>
+        </div>
 
     </template>
 
@@ -30,6 +32,29 @@ A panel that displays a list of FileThis documents
 
             properties:
             {
+            },
+
+            ready: function()
+            {
+                this._loadFakeDocuments();
+            },
+
+            _loadFakeDocuments: function()
+            {
+                var path = "fake-documents.json";
+
+                var xmlHttpRequest = new XMLHttpRequest();
+                xmlHttpRequest.overrideMimeType("application/json");
+                xmlHttpRequest.open('GET', path, true);
+                xmlHttpRequest.onreadystatechange = function()
+                {
+                    if (xmlHttpRequest.readyState == 4 &&
+                        xmlHttpRequest.status == "200")
+                    {
+                        panel.documents = JSON.parse(xmlHttpRequest.responseText);
+                    }
+                };
+                xmlHttpRequest.send();
             }
 
         });

@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../ft-document-list/ft-document-list.html">
 
 <!--
 `ft-document-panel`
@@ -15,11 +16,35 @@ A panel that displays a list of FileThis documents
 
     <template>
 
-        <div>
-            ft-document-panel
+        <div class="layout vertical">
+            <div class="layout horizontal">
+                <paper-icon-button icon="view-headline" title="Rows" style="color:#777777" toggles="true"></paper-icon-button>
+                <paper-icon-button icon="apps" title="Grid" style="color:#777777"></paper-icon-button>
+                <paper-icon-button icon="visibility" title="Preview" style="color:#777777"></paper-icon-button>
+                <div style="width:16px;"></div>
+                <paper-icon-button icon="file-download" title="Download" style="color:#777777" disabled="[[!hasSelectedDocument]]"></paper-icon-button>
+                <paper-icon-button icon="delete" title="Delete" style="color:#777777" disabled="[[!hasSelectedDocument]]"></paper-icon-button>
+                <div class="flex"></div>
+                <div style="width:25px;"></div>
+                <paper-icon-button icon="info-outline" title="Details" style="color:#777777"></paper-icon-button>
+            </div>
+            <ft-document-list id="list"
+                              style="overflow:hidden; overflow-y:scroll; border:1px solid #DDD;"
+                              documents="[[documents]]">
+            <!--<ft-document-list id="list"-->
+                              <!--style="overflow:hidden; overflow-y:scroll; border:1px solid #DDD;"-->
+                              <!--documents="[[documents]]"-->
+                              <!--selectedDocument="{{selectedDocument}}"-->
+                              <!--hasSelectedDocument="{{hasSelectedDocument}}">-->
+            </ft-document-list>
         </div>
 
     </template>
+
+    <script type="text/javascript" src="../log4javascript/log4javascript.js"></script>
+    <script type="text/javascript">
+        var log = log4javascript.getDefaultLogger();
+    </script>
 
     <script>
         Polymer({
@@ -27,6 +52,45 @@ A panel that displays a list of FileThis documents
             is: 'ft-document-panel',
 
             properties: {
+                documents:
+                {
+                    type: Array,
+                    notify: true,
+                    value: []
+                },
+                selectedDocument:
+                {
+                    type: Object,
+                    notify: true,
+                    value: null
+                },
+                hasSelectedDocument:
+                {
+                    type: Boolean,
+                    notify: true,
+                    value: false,
+                    observer: "onHasSelectedDocument"
+                }
+            },
+
+            ready: function()
+            {
+                log.debug("ft-document-panel ready");
+
+                this.$.list.addEventListener("has-selected-document-changed", function(event) {
+                    log.debug("has-selected-document-changed listener " + event);
+                    this.hasSelectedDocument = this.$.list.hasSelectedDocument;
+                }.bind(this));
+
+                this.$.list.addEventListener("selected-document-changed", function(event) {
+                    log.debug("selected-document-changed listener " + event);
+                    this.selectedDocument = this.$.list.selectedDocument;
+                }.bind(this));
+            },
+
+            onHasSelectedDocument: function()
+            {
+                log.debug("ft-document-panel.onHasSelectedDocument(): this.hasSelectedDocument = " + this.hasSelectedDocument);
             }
 
         });
