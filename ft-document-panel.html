@@ -1,6 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../ft-document-list/ft-document-list.html">
 
 <!--
@@ -22,8 +24,8 @@ A panel that displays a list of FileThis documents
                 <paper-icon-button icon="apps" title="Grid" style="color:#777777"></paper-icon-button>
                 <paper-icon-button icon="visibility" title="Preview" style="color:#777777"></paper-icon-button>
                 <div style="width:16px;"></div>
-                <paper-icon-button icon="file-download" title="Download" style="color:#777777" disabled="[[!hasSelectedDocument]]"></paper-icon-button>
-                <paper-icon-button icon="delete" title="Delete" style="color:#777777" disabled="[[!hasSelectedDocument]]"></paper-icon-button>
+                <paper-icon-button icon="file-download" title="Download" style="color:#777777" disabled="[[!selectedDocument]]"></paper-icon-button>
+                <paper-icon-button icon="delete" title="Delete" style="color:#777777" disabled="[[!selectedDocument]]"></paper-icon-button>
                 <div class="flex"></div>
                 <div style="width:25px;"></div>
                 <paper-icon-button icon="info-outline" title="Details" style="color:#777777"></paper-icon-button>
@@ -63,13 +65,6 @@ A panel that displays a list of FileThis documents
                     type: Object,
                     notify: true,
                     value: null
-                },
-                hasSelectedDocument:
-                {
-                    type: Boolean,
-                    notify: true,
-                    value: false,
-                    observer: "onHasSelectedDocument"
                 }
             },
 
@@ -77,22 +72,11 @@ A panel that displays a list of FileThis documents
             {
                 log.debug("ft-document-panel ready");
 
-                this.$.list.addEventListener("has-selected-document-changed", function(event) {
-                    log.debug("has-selected-document-changed listener " + event);
-                    this.hasSelectedDocument = this.$.list.hasSelectedDocument;
-                }.bind(this));
-
                 this.$.list.addEventListener("selected-document-changed", function(event) {
                     log.debug("selected-document-changed listener " + event);
                     this.selectedDocument = this.$.list.selectedDocument;
                 }.bind(this));
-            },
-
-            onHasSelectedDocument: function()
-            {
-                log.debug("ft-document-panel.onHasSelectedDocument(): this.hasSelectedDocument = " + this.hasSelectedDocument);
             }
-
         });
     </script>
 </dom-module>
