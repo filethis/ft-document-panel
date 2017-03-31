@@ -54,12 +54,16 @@ A panel that displays a list of FileThis documents
             is: 'ft-document-panel',
 
             properties: {
+
+                /** The list of documents resources to be displayed. */
                 documents:
                 {
                     type: Array,
                     notify: true,
                     value: []
                 },
+
+                /** The currently-selected document, if any. */
                 selectedDocument:
                 {
                     type: Object,
