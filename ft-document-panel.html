@@ -43,11 +43,6 @@ A panel that displays a list of FileThis documents
 
     </template>
 
-    <script type="text/javascript" src="../log4javascript/log4javascript.js"></script>
-    <script type="text/javascript">
-        var log = log4javascript.getDefaultLogger();
-    </script>
-
     <script>
         Polymer({
 
@@ -74,10 +69,7 @@ A panel that displays a list of FileThis documents
 
             ready: function()
             {
-                log.debug("ft-document-panel ready");
-
                 this.$.list.addEventListener("selected-document-changed", function(event) {
-                    log.debug("selected-document-changed listener " + event);
                     this.selectedDocument = this.$.list.selectedDocument;
                 }.bind(this));
             }

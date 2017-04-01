@@ -1,6 +1,5 @@
 {
     "name": "ft-document-panel",
-    "version": "0.0.2",
     "description": "A panel that displays a list of FileThis documents",
     "main": "ft-document-panel.html",
     "dependencies": {
