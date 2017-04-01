@@ -4,7 +4,9 @@
     "description": "A panel that displays a list of FileThis documents",
     "main": "ft-document-panel.html",
     "dependencies": {
-        "polymer": "Polymer/polymer#^1.4.0"
+        "polymer": "Polymer/polymer#^1.4.0",
+        "ft-document-list-item": "FileThis/ft-document-list-item#^0.0.2",
+        "ft-document-list": "FileThis/ft-document-list#^0.0.2"
     },
     "devDependencies": {
         "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
