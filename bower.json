@@ -4,8 +4,8 @@
   "main": "ft-document-panel.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "ft-document-list-item": "FileThis/ft-document-list-item#^0.0.2",
-    "ft-document-list": "FileThis/ft-document-list#^0.0.2",
+    "ft-document-list-item": "FileThis/ft-document-list-item#^0.0.3",
+    "ft-document-list": "FileThis/ft-document-list#^0.0.4",
     "iron-pages": "PolymerElements/iron-pages#^1.0.8"
   },
   "devDependencies": {
