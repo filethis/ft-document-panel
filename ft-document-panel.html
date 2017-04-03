@@ -3,6 +3,7 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../ft-document-list/ft-document-list.html">
 
 <!--
@@ -19,26 +20,101 @@ A panel that displays a list of FileThis documents
     <template>
 
         <div class="layout vertical">
+
+            <!-- Button bar -->
             <div class="layout horizontal">
-                <paper-icon-button icon="view-headline" title="Rows" style="color:#777777" toggles="true"></paper-icon-button>
-                <paper-icon-button icon="apps" title="Grid" style="color:#777777"></paper-icon-button>
-                <paper-icon-button icon="visibility" title="Preview" style="color:#777777"></paper-icon-button>
+
+                <!-- List button -->
+                <paper-icon-button
+                        icon="view-headline"
+                        title="View as List"
+                        style="color:#777777"
+                        toggles="true"
+                        on-click="_onViewAsListButtonClicked">
+                </paper-icon-button>
+
+                <!-- Grid button -->
+                <paper-icon-button
+                        icon="apps"
+                        title="View as Grid"
+                        style="color:#777777"
+                        on-click="_onViewAsGridButtonClicked">
+                </paper-icon-button>
+
+                <!-- Preview button -->
+                <paper-icon-button
+                        icon="visibility"
+                        title="Preview"
+                        style="color:#777777"
+                        on-click="_onPreviewButtonClicked">
+                </paper-icon-button>
+
                 <div style="width:16px;"></div>
-                <paper-icon-button icon="file-download" title="Download" style="color:#777777" disabled="[[!selectedDocument]]"></paper-icon-button>
-                <paper-icon-button icon="delete" title="Delete" style="color:#777777" disabled="[[!selectedDocument]]"></paper-icon-button>
+
+                <!-- Download button -->
+                <paper-icon-button
+                        icon="file-download"
+                        title="Download"
+                        style="color:#777777"
+                        disabled="[[!selectedDocument]]"
+                        on-click="_onDownloadButtonClicked">
+                </paper-icon-button>
+
+                <!-- Delete button -->
+                <paper-icon-button
+                        icon="delete"
+                        title="Delete"
+                        style="color:#777777"
+                        disabled="[[!selectedDocument]]"
+                        on-click="_onDeleteButtonClicked">
+                </paper-icon-button>
+
                 <div class="flex"></div>
                 <div style="width:25px;"></div>
-                <paper-icon-button icon="info-outline" title="Details" style="color:#777777"></paper-icon-button>
+
+                <!-- Details button -->
+                <paper-icon-button
+                        icon="info-outline"
+                        title="Show Details"
+                        style="color:#777777"
+                        on-click="_onShowDetailsButtonClicked">
+                </paper-icon-button>
             </div>
-            <ft-document-list id="list"
-                              style="overflow:hidden; overflow-y:scroll; border:1px solid #DDD;"
-                              documents="[[documents]]">
-            <!--<ft-document-list id="list"-->
-                              <!--style="overflow:hidden; overflow-y:scroll; border:1px solid #DDD;"-->
-                              <!--documents="[[documents]]"-->
-                              <!--selectedDocument="{{selectedDocument}}"-->
-                              <!--hasSelectedDocument="{{hasSelectedDocument}}">-->
-            </ft-document-list>
+
+            <!-- Views -->
+            <iron-pages id="views" style="width:100%; height:100%;" selected="{{_selectedViewIndex}}">
+
+                <!-- List -->
+                <ft-document-list id="list"
+                                  style="overflow:hidden; overflow-y:scroll; border:1px solid #DDD;"
+                                  documents="[[documents]]">
+                </ft-document-list>
+                <!--<ft-document-list id="list"-->
+                                  <!--style="overflow:hidden; overflow-y:scroll; border:1px solid #DDD;"-->
+                                  <!--documents="[[documents]]"-->
+                                  <!--selectedDocument="{{selectedDocument}}"-->
+                                  <!--hasSelectedDocument="{{hasSelectedDocument}}">-->
+
+                <!-- Grid -->
+                <div class="layout vertical center" style="width:100%; height:100%">
+                    <div style="height:100px;"></div>
+                    <iron-label style="font-size:24pt">
+                        Grid view is coming soon
+                    </iron-label>
+                    <div style="height:100px;"></div>
+                </div>
+
+                <!-- Preview -->
+                <div class="layout vertical center" style="width:100%; height:100%">
+                    <div style="height:100px;"></div>
+                    <iron-label style="font-size:24pt">
+                        Document preview is coming soon
+                    </iron-label>
+                    <div style="height:100px;"></div>
+                </div>
+
+            </iron-pages>
+
         </div>
 
     </template>
@@ -47,6 +123,24 @@ A panel that displays a list of FileThis documents
         Polymer({
 
             is: 'ft-document-panel',
+
+            /**
+             * Fired when the "Download" button is clicked.
+             *
+             * @event download
+             */
+
+            /**
+             * Fired when the "Delete" button is clicked.
+             *
+             * @event delete
+             */
+
+            /**
+             * Fired when the "Show Details" button is clicked.
+             *
+             * @event showDetails
+             */
 
             properties: {
 
@@ -64,6 +158,13 @@ A panel that displays a list of FileThis documents
                     type: Object,
                     notify: true,
                     value: null
+                },
+
+                _selectedViewIndex:
+                {
+                    type: Number,
+                    notify: true,
+                    value: "0"
                 }
             },
 
@@ -72,7 +173,38 @@ A panel that displays a list of FileThis documents
                 this.$.list.addEventListener("selected-document-changed", function(event) {
                     this.selectedDocument = this.$.list.selectedDocument;
                 }.bind(this));
+            },
+
+            _onViewAsListButtonClicked: function(event)
+            {
+                this._selectedViewIndex = 0;
+            },
+
+            _onViewAsGridButtonClicked: function(event)
+            {
+                this._selectedViewIndex = 1;
+            },
+
+            _onPreviewButtonClicked: function(event)
+            {
+                this._selectedViewIndex = 2;
+            },
+
+            _onDownloadButtonClicked: function(event)
+            {
+                this.fire('download', this.selectedDocument);
+            },
+
+            _onDeleteButtonClicked: function(event)
+            {
+                this.fire('delete', this.selectedDocument);
+            },
+
+            _onShowDetailsButtonClicked: function(event)
+            {
+                this.fire('showDetails');
             }
+
         });
     </script>
 </dom-module>
