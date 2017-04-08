@@ -5,6 +5,7 @@
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../ft-document-list/ft-document-list.html">
+<link rel="import" href="../ft-document-grid/ft-document-grid.html">
 
 <!--
 `ft-document-panel`
@@ -25,60 +26,97 @@ A panel that displays a list of FileThis documents
             <div class="layout horizontal">
 
                 <!-- List button -->
-                <paper-icon-button
-                        icon="view-headline"
-                        title="View as List"
-                        style="color:#777777"
-                        toggles="true"
-                        on-click="_onViewAsListButtonClicked">
-                </paper-icon-button>
+                <div class="layout vertical center">
+                    <paper-icon-button
+                            icon="view-headline"
+                            title="View as List"
+                            style="color:#777777"
+                            on-click="_onViewAsListButtonClicked">
+                    </paper-icon-button>
+                    <div style="font-family:Arial; font-size:8pt">List</div>
+                </div>
+
+                <div style="width:5px;"></div>
 
                 <!-- Grid button -->
-                <paper-icon-button
-                        icon="apps"
-                        title="View as Grid"
-                        style="color:#777777"
-                        on-click="_onViewAsGridButtonClicked">
-                </paper-icon-button>
+                <div class="layout vertical center">
+                    <paper-icon-button
+                            icon="apps"
+                            title="View as Grid"
+                            style="color:#777777"
+                            on-click="_onViewAsGridButtonClicked">
+                    </paper-icon-button>
+                    <div style="font-family:Arial; font-size:8pt">Grid</div>
+                </div>
+
+                <div style="width:5px;"></div>
 
                 <!-- Preview button -->
-                <paper-icon-button
-                        icon="visibility"
-                        title="Preview"
-                        style="color:#777777"
-                        on-click="_onPreviewButtonClicked">
-                </paper-icon-button>
+                <div class="layout vertical center">
+                    <paper-icon-button
+                            icon="visibility"
+                            title="Preview"
+                            style="color:#777777"
+                            on-click="_onPreviewButtonClicked">
+                    </paper-icon-button>
+                    <div style="font-family:Arial; font-size:8pt">Preview</div>
+                </div>
 
-                <div style="width:16px;"></div>
+                <div style="width:40px;"></div>
+
+                <!-- Upload button -->
+                <div class="layout vertical center">
+                    <paper-icon-button
+                            icon="file-upload"
+                            title="Upload"
+                            style="color:#777777"
+                            on-click="_onUploadButtonClicked">
+                    </paper-icon-button>
+                    <div style="font-family:Arial; font-size:8pt">Upload</div>
+                </div>
+
+
+                <div style="width:12px;"></div>
 
                 <!-- Download button -->
-                <paper-icon-button
-                        icon="file-download"
-                        title="Download"
-                        style="color:#777777"
-                        disabled="[[!selectedDocument]]"
-                        on-click="_onDownloadButtonClicked">
-                </paper-icon-button>
+                <div class="layout vertical center">
+                    <paper-icon-button
+                            icon="file-download"
+                            title="Download"
+                            style="color:#777777"
+                            disabled="[[!selectedDocument]]"
+                            on-click="_onDownloadButtonClicked">
+                    </paper-icon-button>
+                    <div style="font-family:Arial; font-size:8pt">Download</div>
+                </div>
+
+                <div style="width:40px;"></div>
 
                 <!-- Delete button -->
-                <paper-icon-button
-                        icon="delete"
-                        title="Delete"
-                        style="color:#777777"
-                        disabled="[[!selectedDocument]]"
-                        on-click="_onDeleteButtonClicked">
-                </paper-icon-button>
+                <div class="layout vertical center">
+                    <paper-icon-button
+                            icon="delete"
+                            title="Delete"
+                            style="color:#777777"
+                            disabled="[[!selectedDocument]]"
+                            on-click="_onDeleteButtonClicked">
+                    </paper-icon-button>
+                    <div style="font-family:Arial; font-size:8pt">Delete</div>
+                </div>
 
                 <div class="flex"></div>
                 <div style="width:25px;"></div>
 
                 <!-- Details button -->
-                <paper-icon-button
-                        icon="info-outline"
-                        title="Show Details"
-                        style="color:#777777"
-                        on-click="_onShowDetailsButtonClicked">
-                </paper-icon-button>
+                <div class="layout vertical center">
+                    <paper-icon-button
+                            icon="info-outline"
+                            title="Show Details"
+                            style="color:#777777"
+                            on-click="_onShowDetailsButtonClicked">
+                    </paper-icon-button>
+                    <div style="font-family:Arial; font-size:8pt">Details</div>
+                </div>
             </div>
 
             <!-- Views -->
@@ -96,13 +134,10 @@ A panel that displays a list of FileThis documents
                                   <!--hasSelectedDocument="{{hasSelectedDocument}}">-->
 
                 <!-- Grid -->
-                <div class="layout vertical center" style="width:100%; height:100%">
-                    <div style="height:100px;"></div>
-                    <iron-label style="font-size:24pt">
-                        Grid view is coming soon
-                    </iron-label>
-                    <div style="height:100px;"></div>
-                </div>
+                <ft-document-grid id="grid"
+                                  style="overflow:hidden; overflow-y:scroll; border:1px solid #DDD;"
+                                  documents="[[documents]]">
+                </ft-document-grid>
 
                 <!-- Preview -->
                 <div class="layout vertical center" style="width:100%; height:100%">
@@ -128,18 +163,26 @@ A panel that displays a list of FileThis documents
              * Fired when the "Download" button is clicked.
              *
              * @event download
+             * @param {Object} document The selected document whose file the user wants to download.
+             */
+
+            /**
+             * Fired when the "Upload" button is clicked.
+             *
+             * @event upload
              */
 
             /**
              * Fired when the "Delete" button is clicked.
              *
              * @event delete
+             * @param {Object} document The selected document to be deleted.
              */
 
             /**
              * Fired when the "Show Details" button is clicked.
              *
-             * @event showDetails
+             * @event show-details
              */
 
             properties: {
@@ -149,7 +192,8 @@ A panel that displays a list of FileThis documents
                 {
                     type: Array,
                     notify: true,
-                    value: []
+                    value: [],
+                    observer: "_documentsChanged"
                 },
 
                 /** The currently-selected document, if any. */
@@ -165,7 +209,34 @@ A panel that displays a list of FileThis documents
                     type: Number,
                     notify: true,
                     value: "0"
+                },
+
+                /** The FileThis ticket. Used for uploads. */
+                ticket:
+                {
+                    type: String,
+                    notify: true,
+                    value: ""
                 }
+            },
+
+            // Man, this is fugly...
+
+            _documentsChanged: function()
+            {
+                setInterval(this._fixGrid.bind(this), 1)
+            },
+
+            _fixGrid: function()
+            {
+                var currentSelectedViewIndex = this._selectedViewIndex;
+                var tempSelectedViewIndex;
+                if (currentSelectedViewIndex == 0)
+                    tempSelectedViewIndex = 1;
+                else
+                    tempSelectedViewIndex = 0;
+                this._selectedViewIndex = tempSelectedViewIndex;
+                this._selectedViewIndex = currentSelectedViewIndex;
             },
 
             ready: function()
@@ -195,6 +266,11 @@ A panel that displays a list of FileThis documents
                 this.fire('download', this.selectedDocument);
             },
 
+            _onUploadButtonClicked: function(event)
+            {
+                this.fire('upload');
+            },
+
             _onDeleteButtonClicked: function(event)
             {
                 this.fire('delete', this.selectedDocument);
@@ -202,7 +278,7 @@ A panel that displays a list of FileThis documents
 
             _onShowDetailsButtonClicked: function(event)
             {
-                this.fire('showDetails');
+                this.fire('show-details');
             }
 
         });
