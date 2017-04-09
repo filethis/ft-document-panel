@@ -239,13 +239,6 @@ A panel that displays a list of FileThis documents
                 this._selectedViewIndex = currentSelectedViewIndex;
             },
 
-            ready: function()
-            {
-                this.$.list.addEventListener("selected-document-changed", function(event) {
-                    this.selectedDocument = this.$.list.selectedDocument;
-                }.bind(this));
-            },
-
             _onViewAsListButtonClicked: function(event)
             {
                 this._selectedViewIndex = 0;
