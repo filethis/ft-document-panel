@@ -4,10 +4,10 @@
   "main": "ft-document-panel.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "ft-document-grid-item": "FileThis/ft-document-grid-item#^0.0.1",
-    "ft-document-grid": "FileThis/ft-document-grid#^0.0.1",
-    "ft-document-list-item": "FileThis/ft-document-list-item#^0.0.3",
-    "ft-document-list": "FileThis/ft-document-list#^0.0.4",
+    "ft-document-grid": "filethis/ft-document-grid#^0.0.2",
+    "ft-document-grid-item": "filethis/ft-document-grid-item#^0.0.2",
+    "ft-document-list": "filethis/ft-document-list#^0.0.5",
+    "ft-document-list-item": "filethis/ft-document-list-item#^0.0.4",
     "iron-pages": "PolymerElements/iron-pages#^1.0.8"
   },
   "devDependencies": {
