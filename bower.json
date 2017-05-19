@@ -3,7 +3,7 @@
   "description": "A panel that displays a list of FileThis documents",
   "main": "ft-document-panel.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0",
+    "polymer": "Polymer/polymer#^1.9.0",
     "ft-document-grid": "filethis/ft-document-grid#^0.0.2",
     "ft-document-grid-item": "filethis/ft-document-grid-item#^0.0.2",
     "ft-document-list": "filethis/ft-document-list#^0.0.5",
