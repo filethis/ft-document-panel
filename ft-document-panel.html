@@ -137,7 +137,11 @@ A panel that displays a list of FileThis documents
             </div>
 
             <!-- Views -->
-            <iron-pages id="views" style="width:100%; height:100%;" selected="{{_selectedViewIndex}}">
+            <iron-pages
+                    id="views"
+                    style="width:100%; height:100%;"
+                    attr-for-selected="id"
+                    selected="{{_selectedViewId}}">
 
                 <!-- List -->
                 <ft-document-list id="list"
@@ -221,11 +225,11 @@ A panel that displays a list of FileThis documents
                     value: null
                 },
 
-                _selectedViewIndex:
+                _selectedViewId:
                 {
-                    type: Number,
+                    type: String,
                     notify: true,
-                    value: "0"
+                    value: "grid"
                 },
 
                 /** The FileThis ticket. Used for uploads. */
@@ -246,29 +250,29 @@ A panel that displays a list of FileThis documents
 
             _fixGrid: function()
             {
-                var currentSelectedViewIndex = this._selectedViewIndex;
-                var tempSelectedViewIndex;
-                if (currentSelectedViewIndex == 0)
-                    tempSelectedViewIndex = 1;
-                else
-                    tempSelectedViewIndex = 0;
-                this._selectedViewIndex = tempSelectedViewIndex;
-                this._selectedViewIndex = currentSelectedViewIndex;
+                const currentSelectedViewId = this._selectedViewId;
+                var tempSelectedViewId;
+                if (currentSelectedViewId == "list")
+                    tempSelectedViewId = "grid";
+                else // currentSelectedViewId == "grid"
+                    tempSelectedViewId = "list";
+                this._selectedViewId = tempSelectedViewId;
+                this._selectedViewId = currentSelectedViewId;
             },
 
             _onViewAsListButtonClicked: function(event)
             {
-                this._selectedViewIndex = 0;
+                this._selectedViewId = 0;
             },
 
             _onViewAsGridButtonClicked: function(event)
             {
-                this._selectedViewIndex = 1;
+                this._selectedViewId = 1;
             },
 
             _onPreviewButtonClicked: function(event)
             {
-                this._selectedViewIndex = 2;
+                this._selectedViewId = 2;
             },
 
             _onDownloadButtonClicked: function(event)
