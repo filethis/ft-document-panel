@@ -36,6 +36,7 @@ limitations under the License.
 
 <!-- Imports -->
 <link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
 
 <link rel="import" href="../ft-document-panel.html">
 
@@ -50,10 +51,63 @@ A panel that displays a list of FileThis documents
 
     <style include="iron-flex iron-flex-alignment"></style>
 
+    <style is="custom-style">
+
+        paper-checkbox {
+            width:165px;
+            margin-bottom:16px;
+        }
+
+    </style>
+
     <template>
 
-        <div class="layout vertical center">
-            <ft-document-panel id="panel" style="width:700px"></ft-document-panel>
+        <div class="layout horizontal center">
+
+            <!-- Settings -->
+            <div class="layout vertical center" style="width:300px">
+
+                <paper-checkbox checked="{{showGridButton}}">
+                    Show Grid Button
+                </paper-checkbox>
+
+                <paper-checkbox checked="{{showListButton}}">
+                    Show List Button
+                </paper-checkbox>
+
+                <paper-checkbox checked="{{showPreviewButton}}">
+                    Show Preview Button
+                </paper-checkbox>
+
+                <paper-checkbox checked="{{showUploadButton}}">
+                    Show Upload Button
+                </paper-checkbox>
+
+                <paper-checkbox checked="{{showDownloadButton}}">
+                    Show Download Button
+                </paper-checkbox>
+
+                <paper-checkbox checked="{{showDeleteButton}}">
+                    Show Delete Button
+                </paper-checkbox>
+            </div>
+
+            <!-- Panel -->
+            <div
+                    class="layout vertical center"
+                    style="border:1px solid #DDD;">
+                <ft-document-panel
+                        id="panel"
+                        show-grid-button="[[showGridButton]]"
+                        show-list-button="[[showListButton]]"
+                        show-preview-button="[[showPreviewButton]]"
+                        show-upload-button="[[showUploadButton]]"
+                        show-download-button="[[showDownloadButton]]"
+                        show-delete-button="[[showDeleteButton]]"
+                        style="width:700px; height:700px">
+                </ft-document-panel>
+            </div>
+
         </div>
 
     </template>
@@ -66,6 +120,41 @@ A panel that displays a list of FileThis documents
 
             properties:
             {
+                showGridButton:
+                {
+                    type: Boolean,
+                    value: true
+                },
+
+                showListButton:
+                {
+                    type: Boolean,
+                    value: true
+                },
+
+                showPreviewButton:
+                {
+                    type: Boolean,
+                    value: true
+                },
+
+                showUploadButton:
+                {
+                    type: Boolean,
+                    value: true
+                },
+
+                showDownloadButton:
+                {
+                    type: Boolean,
+                    value: true
+                },
+
+                showDeleteButton:
+                {
+                    type: Boolean,
+                    value: true
+                }
             },
 
             ready: function()
@@ -82,8 +171,8 @@ A panel that displays a list of FileThis documents
                 xmlHttpRequest.open('GET', path, true);
                 xmlHttpRequest.onreadystatechange = function()
                 {
-                    if (xmlHttpRequest.readyState == 4 &&
-                        xmlHttpRequest.status == "200")
+                    if (xmlHttpRequest.readyState === 4 &&
+                        xmlHttpRequest.status === 200)
                     {
                         panel.documents = JSON.parse(xmlHttpRequest.responseText);
                     }

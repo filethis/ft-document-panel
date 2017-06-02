@@ -23,6 +23,8 @@ limitations under the License.
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../ft-document-list/ft-document-list.html">
 <link rel="import" href="../ft-document-grid/ft-document-grid.html">
+<link rel="import" href="../ft-icon-button/ft-icon-button.html">
+<link rel="import" href="../ft-confirmation-dialog/ft-confirmation-dialog.html">
 
 <!--
 `ft-document-panel`
@@ -40,100 +42,91 @@ A panel that displays a list of FileThis documents
         <div class="layout vertical">
 
             <!-- Button bar -->
-            <div class="layout horizontal">
-
-                <!-- List button -->
-                <div class="layout vertical center">
-                    <paper-icon-button
-                            icon="view-headline"
-                            title="View as List"
-                            style="color:#777777"
-                            on-click="_onViewAsListButtonClicked">
-                    </paper-icon-button>
-                    <div style="font-family:Arial; font-size:8pt">List</div>
-                </div>
-
-                <div style="width:5px;"></div>
+            <div
+                    class="layout horizontal center"
+                    hidden$="[[!_showButtonBar]]"
+                    style="height:60px; padding-left:15px; padding-right:15px; border-bottom:1px solid #DDD;">
 
                 <!-- Grid button -->
-                <div class="layout vertical center">
-                    <paper-icon-button
-                            icon="apps"
-                            title="View as Grid"
-                            style="color:#777777"
-                            on-click="_onViewAsGridButtonClicked">
-                    </paper-icon-button>
-                    <div style="font-family:Arial; font-size:8pt">Grid</div>
-                </div>
+                <ft-icon-button
+                        id="defaultServerButton"
+                        icon="apps"
+                        label="Grid"
+                        hidden$="[[!showGridButton]]"
+                        style$="margin-right:5px;"
+                        on-click="_onViewAsGridButtonClicked">
+                </ft-icon-button>
 
-                <div style="width:5px;"></div>
+                <!-- List button -->
+                <ft-icon-button
+                        id="listButton"
+                        icon="view-headline"
+                        label="List"
+                        hidden$="[[!showListButton]]"
+                        style$="margin-right:5px;"
+                        on-click="_onViewAsListButtonClicked">
+                </ft-icon-button>
 
                 <!-- Preview button -->
-                <div class="layout vertical center">
-                    <paper-icon-button
-                            icon="visibility"
-                            title="Preview"
-                            style="color:#777777"
-                            on-click="_onPreviewButtonClicked">
-                    </paper-icon-button>
-                    <div style="font-family:Arial; font-size:8pt">Preview</div>
-                </div>
+                <ft-icon-button
+                        id="previewButton"
+                        icon="visibility"
+                        label="Preview"
+                        disabled="[[!_haveSelection]]"
+                        hidden$="[[!showPreviewButton]]"
+                        style$="margin-right:5px;"
+                        on-click="_onPreviewButtonClicked">
+                </ft-icon-button>
 
-                <div style="width:40px;"></div>
+                <!-- View button group spacer -->
+                <div style$=width:[[_viewButtonGroupSpacerWidth]]px;"></div>
 
                 <!-- Upload button -->
-                <div class="layout vertical center">
-                    <paper-icon-button
-                            icon="file-upload"
-                            title="Upload"
-                            style="color:#777777"
-                            on-click="_onUploadButtonClicked">
-                    </paper-icon-button>
-                    <div style="font-family:Arial; font-size:8pt">Upload</div>
-                </div>
-
-
-                <div style="width:12px;"></div>
+                <ft-icon-button
+                        id="uploadButton"
+                        icon="file-upload"
+                        label="Upload"
+                        hidden$="[[!showUploadButton]]"
+                        style$="margin-right:5px;"
+                        on-click="_onUploadButtonClicked">
+                </ft-icon-button>
 
                 <!-- Download button -->
-                <div class="layout vertical center">
-                    <paper-icon-button
-                            icon="file-download"
-                            title="Download"
-                            style="color:#777777"
-                            disabled="[[!selectedDocument]]"
-                            on-click="_onDownloadButtonClicked">
-                    </paper-icon-button>
-                    <div style="font-family:Arial; font-size:8pt">Download</div>
-                </div>
+                <ft-icon-button
+                        id="downloadButton"
+                        icon="file-download"
+                        label="Down"
+                        disabled="[[!_haveSelection]]"
+                        hidden$="[[!showDownloadButton]]"
+                        style$="margin-right:5px;"
+                        on-click="_onDownloadButtonClicked">
+                </ft-icon-button>
 
-                <div style="width:40px;"></div>
+                <!-- Upload/download button group spacer -->
+                <div style$=width:[[_uploadDownloadButtonGroupSpacerWidth]]px;"></div>
 
                 <!-- Delete button -->
-                <div class="layout vertical center">
-                    <paper-icon-button
-                            icon="delete"
-                            title="Delete"
-                            style="color:#777777"
-                            disabled="[[!selectedDocument]]"
-                            on-click="_onDeleteButtonClicked">
-                    </paper-icon-button>
-                    <div style="font-family:Arial; font-size:8pt">Delete</div>
-                </div>
+                <ft-icon-button
+                        id="deleteButton"
+                        icon="delete"
+                        label="Delete"
+                        disabled="[[!_haveSelection]]"
+                        hidden$="[[!showDeleteButton]]"
+                        style$="margin-right:5px;"
+                        on-click="_onDeleteButtonClicked">
+                </ft-icon-button>
 
                 <div class="flex"></div>
                 <div style="width:25px;"></div>
 
                 <!-- Details button -->
-                <div class="layout vertical center">
-                    <paper-icon-button
-                            icon="info-outline"
-                            title="Show Details"
-                            style="color:#777777"
-                            on-click="_onShowDetailsButtonClicked">
-                    </paper-icon-button>
-                    <div style="font-family:Arial; font-size:8pt">Details</div>
-                </div>
+                <!--<ft-icon-button-->
+                        <!--id="detailsButton"-->
+                        <!--icon="info-outline"-->
+                        <!--label="Details"-->
+                        <!--disabled="[[!_haveSelection]]"-->
+                        <!--on-click="_onShowDetailsButtonClicked">-->
+                <!--</ft-icon-button>-->
             </div>
 
             <!-- Views -->
@@ -141,37 +134,45 @@ A panel that displays a list of FileThis documents
                     id="views"
                     style="width:100%; height:100%;"
                     attr-for-selected="id"
-                    selected="{{_selectedViewId}}">
-
-                <!-- List -->
-                <ft-document-list id="list"
-                                  style="overflow:hidden; overflow-y:scroll; border:1px solid #DDD;"
-                                  documents="[[documents]]">
-                </ft-document-list>
-                <!--<ft-document-list id="list"-->
-                                  <!--style="overflow:hidden; overflow-y:scroll; border:1px solid #DDD;"-->
-                                  <!--documents="[[documents]]"-->
-                                  <!--selectedDocument="{{selectedDocument}}"-->
-                                  <!--hasSelectedDocument="{{hasSelectedDocument}}">-->
+                    selected="{{selectedView}}">
 
                 <!-- Grid -->
-                <ft-document-grid id="grid"
-                                  style="overflow:hidden; overflow-y:scroll; border:1px solid #DDD;"
-                                  documents="[[documents]]">
+                <ft-document-grid
+                        id="grid"
+                        style="overflow:hidden; overflow-y:scroll;"
+                        documents="[[documents]]"
+                        selected-document="{{selectedDocument}}">
                 </ft-document-grid>
 
+                <!-- List -->
+                <ft-document-list
+                        id="list"
+                        style="overflow:hidden; overflow-y:scroll; border-bottom:1px solid #DDD;"
+                        documents="[[documents]]"
+                        selected-document="{{selectedDocument}}">
+                </ft-document-list>
+
                 <!-- Preview -->
-                <div class="layout vertical center" style="width:100%; height:100%">
+                <div
+                        id="preview"
+                        class="layout vertical center"
+                        style="width:100%; height:100%">
+
                     <div style="height:100px;"></div>
+
                     <iron-label style="font-size:24pt">
                         Document preview is coming soon
                     </iron-label>
+
                     <div style="height:100px;"></div>
                 </div>
 
             </iron-pages>
 
         </div>
+
+        <!-- Confirmation dialog -->
+        <ft-confirmation-dialog id="confirmationDialog"></ft-confirmation-dialog>
 
     </template>
 
@@ -222,22 +223,95 @@ A panel that displays a list of FileThis documents
                 {
                     type: Object,
                     notify: true,
-                    value: null
+                    value: null,
+                    observer: "_selectedDocumentChanged"
                 },
 
-                _selectedViewId:
+                /** The currently-selected view of the document(s). Must be one of: "grid", "list", "preview". */
+                selectedView:
                 {
                     type: String,
                     notify: true,
                     value: "grid"
                 },
 
+                /** Show a button that lets users choose to view documents in a grid. */
+                showGridButton:
+                {
+                    type: Boolean,
+                    value: true,
+                    observer: "_showButtonChanged"
+                },
+
+                /** Show a button that lets users choose to view documents in a list. */
+                showListButton:
+                {
+                    type: Boolean,
+                    value: true,
+                    observer: "_showButtonChanged"
+                },
+
+                /** Show a button that lets users choose to preview the selected document. */
+                showPreviewButton:
+                {
+                    type: Boolean,
+                    value: true,
+                    observer: "_showButtonChanged"
+                },
+
+                /** Show a button that lets users upload document files. */
+                showUploadButton:
+                {
+                    type: Boolean,
+                    value: true,
+                    observer: "_showButtonChanged"
+                },
+
+                /** Show a button that lets users download file for the selected document. */
+                showDownloadButton:
+                {
+                    type: Boolean,
+                    value: true,
+                    observer: "_showButtonChanged"
+                },
+
+                /** Show a button that lets users delete the selected document. */
+                showDeleteButton:
+                {
+                    type: Boolean,
+                    value: true,
+                    observer: "_showButtonChanged"
+                },
+
                 /** The FileThis ticket. Used for uploads. */
                 ticket:
                 {
                     type: String,
-                    notify: true,
                     value: ""
+                },
+
+                _showButtonBar:
+                {
+                    type: Boolean,
+                    value: true
+                },
+
+                _viewButtonGroupSpacerWidth:
+                {
+                    type: Number,
+                    value: 30
+                },
+
+                _uploadDownloadButtonGroupSpacerWidth:
+                {
+                    type: Number,
+                    value: 30
+                },
+
+                _haveSelection:
+                {
+                    type: Boolean,
+                    value: false
                 }
             },
 
@@ -250,29 +324,34 @@ A panel that displays a list of FileThis documents
 
             _fixGrid: function()
             {
-                const currentSelectedViewId = this._selectedViewId;
+                const currentSelectedViewId = this.selectedView;
                 var tempSelectedViewId;
-                if (currentSelectedViewId == "list")
+                if (currentSelectedViewId === "list")
                     tempSelectedViewId = "grid";
-                else // currentSelectedViewId == "grid"
+                else // currentSelectedViewId === "grid"
                     tempSelectedViewId = "list";
-                this._selectedViewId = tempSelectedViewId;
-                this._selectedViewId = currentSelectedViewId;
+                this.selectedView = tempSelectedViewId;
+                this.selectedView = currentSelectedViewId;
+            },
+
+            _selectedDocumentChanged: function()
+            {
+                this._haveSelection = (this.selectedDocument !== null);
             },
 
             _onViewAsListButtonClicked: function(event)
             {
-                this._selectedViewId = 0;
+                this.selectedView = "list";
             },
 
             _onViewAsGridButtonClicked: function(event)
             {
-                this._selectedViewId = 1;
+                this.selectedView = "grid";
             },
 
             _onPreviewButtonClicked: function(event)
             {
-                this._selectedViewId = 2;
+                this.selectedView = "preview";
             },
 
             _onDownloadButtonClicked: function(event)
@@ -287,12 +366,79 @@ A panel that displays a list of FileThis documents
 
             _onDeleteButtonClicked: function(event)
             {
-                this.fire('delete', this.selectedDocument);
+                const overrideWarning = event.metaKey;
+                if (overrideWarning)
+                {
+                    this.fire('delete', this.selectedDocument);
+                    return;
+                }
+
+                const prompt = "Are you sure you want to delete the selected document?";
+                return this.$.confirmationDialog.confirm(prompt, "Delete Document")
+                    .then(function(choice)
+                    {
+                        if (choice === "cancel")
+                            return;
+                        this.fire('delete', this.selectedDocument);
+                    }.bind(this))
             },
 
             _onShowDetailsButtonClicked: function(event)
             {
                 this.fire('show-details');
+            },
+
+            _showButtonChanged: function()
+            {
+                this._showButtonBar = this._canShowButtonBar();
+                this._respaceButtons();
+            },
+
+            _canShowButtonBar: function()
+            {
+                if (this._someViewButtonShown())
+                    return true;
+                if (this._someUploadDownloadButtonShown())
+                    return true;
+                if (this.showDeleteButton)
+                    return true;
+                return false;
+            },
+
+            _someViewButtonShown: function()
+            {
+                if (this.showGridButton)
+                    return true;
+                if (this.showListButton)
+                    return true;
+                if (this.showPreviewButton)
+                    return true;
+                return false;
+            },
+
+            _someUploadDownloadButtonShown: function()
+            {
+                if (this.showUploadButton)
+                    return true;
+                if (this.showDownloadButton)
+                    return true;
+                return false;
+            },
+
+            _respaceButtons: function()
+            {
+                const groupSpacerWidth = 30;
+
+                var viewButtonGroupSpacerWidth = 0;
+                var uploadDownloadButtonGroupSpacerWidth = 0;
+
+                if (this._someViewButtonShown())
+                    viewButtonGroupSpacerWidth = groupSpacerWidth;
+                if (this._someUploadDownloadButtonShown())
+                    uploadDownloadButtonGroupSpacerWidth = groupSpacerWidth;
+
+                this._viewButtonGroupSpacerWidth = viewButtonGroupSpacerWidth;
+                this._uploadDownloadButtonGroupSpacerWidth = uploadDownloadButtonGroupSpacerWidth;
             }
 
         });

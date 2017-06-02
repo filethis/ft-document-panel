@@ -8,12 +8,18 @@
     "ft-document-grid-item": "filethis/ft-document-grid-item#^0.0.2",
     "ft-document-list": "filethis/ft-document-list#^0.0.5",
     "ft-document-list-item": "filethis/ft-document-list-item#^0.0.4",
-    "iron-pages": "PolymerElements/iron-pages#^1.0.8"
+    "ft-icon-button": "filethis/icon-button#^0.0.1",
+    "ft-confirmation-dialog": "filethis/ft-confirmation-dialog#^0.0.1",
+    "iron-pages": "PolymerElements/iron-pages#^1.0.8",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.24"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^0.7.24"
   }
 }
