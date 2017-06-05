@@ -317,7 +317,7 @@ A panel that displays a list of FileThis documents
 
             // Man, this is fugly...
 
-            _documentsChanged: function()
+            _documentsChanged: function(to, from)
             {
                 setInterval(this._fixGrid.bind(this), 1)
             },
@@ -334,7 +334,7 @@ A panel that displays a list of FileThis documents
                 this.selectedView = currentSelectedViewId;
             },
 
-            _selectedDocumentChanged: function()
+            _selectedDocumentChanged: function(to, from)
             {
                 this._haveSelection = (this.selectedDocument !== null);
             },
@@ -388,7 +388,7 @@ A panel that displays a list of FileThis documents
                 this.fire('show-details');
             },
 
-            _showButtonChanged: function()
+            _showButtonChanged: function(to, from)
             {
                 this._showButtonBar = this._canShowButtonBar();
                 this._respaceButtons();
