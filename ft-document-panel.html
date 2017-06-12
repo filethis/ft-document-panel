@@ -16,15 +16,18 @@ limitations under the License.
 
 
 <link rel="import" href="../polymer/polymer.html">
-
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
+
 <link rel="import" href="../ft-document-list/ft-document-list.html">
 <link rel="import" href="../ft-document-grid/ft-document-grid.html">
 <link rel="import" href="../ft-icon-button/ft-icon-button.html">
 <link rel="import" href="../ft-confirmation-dialog/ft-confirmation-dialog.html">
+<link rel="import" href="../ft-scrolling-behavior/ft-scrolling-behavior.html">
+
 
 <!--
 `ft-document-panel`
@@ -35,7 +38,7 @@ A panel that displays a list of FileThis documents
 
 <dom-module id="ft-document-panel">
 
-    <style include="iron-flex iron-flex-alignment"></style>
+    <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
     <template>
 
@@ -43,6 +46,7 @@ A panel that displays a list of FileThis documents
 
             <!-- Button bar -->
             <div
+                    id="buttonBar"
                     class="layout horizontal center"
                     hidden$="[[!_showButtonBar]]"
                     style="height:60px; padding-left:15px; padding-right:15px; border-bottom:1px solid #DDD;">
@@ -137,20 +141,25 @@ A panel that displays a list of FileThis documents
                     selected="{{selectedView}}">
 
                 <!-- Grid -->
-                <ft-document-grid
+                <div
                         id="grid"
-                        style="overflow:hidden; overflow-y:scroll;"
-                        documents="[[documents]]"
-                        selected-document="{{selectedDocument}}">
-                </ft-document-grid>
+                        style="overflow:auto;">
+                    <ft-document-grid
+                            documents="[[documents]]"
+                            selected-document="{{selectedDocument}}">
+                    </ft-document-grid>
+                </div>
 
                 <!-- List -->
-                <ft-document-list
+                <div
                         id="list"
-                        style="overflow:hidden; overflow-y:scroll; border-bottom:1px solid #DDD;"
-                        documents="[[documents]]"
-                        selected-document="{{selectedDocument}}">
-                </ft-document-list>
+                        style="overflow:auto">
+                    <ft-document-list
+                            style="border-bottom:1px solid #DDD"
+                            documents="[[documents]]"
+                            selected-document="{{selectedDocument}}">
+                    </ft-document-list>
+                </div>
 
                 <!-- Preview -->
                 <div
@@ -180,6 +189,11 @@ A panel that displays a list of FileThis documents
         Polymer({
 
             is: 'ft-document-panel',
+
+            behaviors: [
+                Polymer.IronResizableBehavior,
+                FtScrollingBehavior
+            ],
 
             /**
              * Fired when the "Download" button is clicked.
@@ -315,11 +329,32 @@ A panel that displays a list of FileThis documents
                 }
             },
 
+            ready: function()
+            {
+                this._manageScroller(this.$.grid);
+                this._manageScroller(this.$.list);
+            },
+
+            _calculateScrollerWidth: function(scroller)
+            {
+                return this.clientWidth;
+            },
+
+            _calculateScrollerHeight: function(scroller)
+            {
+                const bar = this.$.buttonBar;
+                const barIsHidden = (bar.offsetParent === null);
+                var barHeight = 0;
+                if (!barIsHidden)
+                    barHeight = bar.offsetHeight;
+                return this.clientHeight - barHeight;
+            },
+
             // Man, this is fugly...
 
             _documentsChanged: function(to, from)
             {
-                setInterval(this._fixGrid.bind(this), 1)
+                this._fixGrid();
             },
 
             _fixGrid: function()
@@ -392,6 +427,7 @@ A panel that displays a list of FileThis documents
             {
                 this._showButtonBar = this._canShowButtonBar();
                 this._respaceButtons();
+                this.notifyResize();
             },
 
             _canShowButtonBar: function()

@@ -36,6 +36,8 @@ limitations under the License.
 
 <!-- Imports -->
 <link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+
 <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
 
 <link rel="import" href="../ft-document-panel.html">
@@ -49,7 +51,7 @@ A panel that displays a list of FileThis documents
  -->
 <dom-module id="demo-fixture">
 
-    <style include="iron-flex iron-flex-alignment"></style>
+    <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
     <style is="custom-style">
 
@@ -104,7 +106,7 @@ A panel that displays a list of FileThis documents
                         show-upload-button="[[showUploadButton]]"
                         show-download-button="[[showDownloadButton]]"
                         show-delete-button="[[showDeleteButton]]"
-                        style="width:700px; height:700px">
+                        style="width:700px; height:600px">
                 </ft-document-panel>
             </div>
 
