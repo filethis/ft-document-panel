@@ -55,7 +55,17 @@ A panel that displays a list of FileThis documents
                     id="buttonBar"
                     class="layout horizontal center"
                     hidden$="[[!_showButtonBar]]"
-                    style="height:60px; padding-left:15px; padding-right:15px; border-bottom:1px solid #DDD;">
+                    style="height:60px; padding-left:16px; padding-right:15px; border-bottom:1px solid #DDD;">
+
+                <!-- Title -->
+                <iron-label
+                        hidden$="[[!showTitle]]"
+                        style="font-family:Arial; font-size:14pt; ">
+                    [[title]]
+                </iron-label>
+
+                <!-- Title spacer -->
+                <div style$=width:[[_titleSpacerWidth]]px;"></div>
 
                 <!-- Grid button -->
                 <ft-icon-button
@@ -142,7 +152,7 @@ A panel that displays a list of FileThis documents
             <!-- Views -->
             <iron-pages
                     id="views"
-                    style="width:100%; height:100%; background-color:white"
+                    style="width:100%; height:100%; background-color:white; "
                     attr-for-selected="id"
                     selected="{{selectedView}}">
 
@@ -247,6 +257,21 @@ A panel that displays a list of FileThis documents
                     observer: "_selectedDocumentChanged"
                 },
 
+                /** Show a title string. */
+                showTitle:
+                {
+                    type: Boolean,
+                    value: true,
+                    observer: "_showButtonChanged"
+                },
+
+                /** Title to display when "showTitle" is true. */
+                title:
+                {
+                    type: String,
+                    value: "Documents"
+                },
+
                 /** The currently-selected view of the document(s). Must be one of: "grid", "list", "preview". */
                 selectedView:
                 {
@@ -314,6 +339,12 @@ A panel that displays a list of FileThis documents
                 {
                     type: Boolean,
                     value: true
+                },
+
+                _titleSpacerWidth:
+                {
+                    type: Number,
+                    value: 30
                 },
 
                 _viewButtonGroupSpacerWidth:
@@ -433,6 +464,8 @@ A panel that displays a list of FileThis documents
 
             _canShowButtonBar: function()
             {
+                if (this.showTitle)
+                    return true;
                 if (this._someViewButtonShown())
                     return true;
                 if (this._someUploadDownloadButtonShown())
@@ -466,14 +499,18 @@ A panel that displays a list of FileThis documents
             {
                 const groupSpacerWidth = 30;
 
+                var titleSpacerWidth = 0;
                 var viewButtonGroupSpacerWidth = 0;
                 var uploadDownloadButtonGroupSpacerWidth = 0;
 
+                if (this.showTitle)
+                    titleSpacerWidth = groupSpacerWidth;
                 if (this._someViewButtonShown())
                     viewButtonGroupSpacerWidth = groupSpacerWidth;
                 if (this._someUploadDownloadButtonShown())
                     uploadDownloadButtonGroupSpacerWidth = groupSpacerWidth;
 
+                this._titleSpacerWidth = titleSpacerWidth;
                 this._viewButtonGroupSpacerWidth = viewButtonGroupSpacerWidth;
                 this._uploadDownloadButtonGroupSpacerWidth = uploadDownloadButtonGroupSpacerWidth;
             }

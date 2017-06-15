@@ -39,6 +39,7 @@ limitations under the License.
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 
 <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../iron-input/iron-input.html">
 
 <link rel="import" href="../ft-document-panel.html">
 
@@ -74,6 +75,33 @@ A panel that displays a list of FileThis documents
             <!-- Settings -->
             <div class="layout vertical center" style="width:300px">
 
+                <paper-checkbox checked="{{showTitle}}">
+                    Show Title
+                </paper-checkbox>
+
+                <div class="layout horizontal">
+
+                    <!-- Label -->
+                    <div>
+                        Title:
+                    </div>
+
+                    <!-- Field -->
+                    <iron-input
+                           id="titleField"
+                           bind-value="{{title}}"
+                           style="font-family:Arial;
+                                    font-size:12px;
+                                    width:100px; height:28px;
+                                    padding-left:6px; padding-right:6px;
+                                    color:#343434;">
+                        <input value="{{value::input}}">
+                    </iron-input>
+
+                </div>
+
+                <div style="height:20px"></div>
+
                 <paper-checkbox checked="{{showGridButton}}">
                     Show Grid Button
                 </paper-checkbox>
@@ -105,6 +133,8 @@ A panel that displays a list of FileThis documents
                     style="border:1px solid #DDD;">
                 <ft-document-panel
                         id="panel"
+                        show-title="[[showTitle]]"
+                        title="[[title]]"
                         show-grid-button="[[showGridButton]]"
                         show-list-button="[[showListButton]]"
                         show-preview-button="[[showPreviewButton]]"
@@ -127,6 +157,16 @@ A panel that displays a list of FileThis documents
 
             properties:
             {
+                showTitle:
+                {
+                    type: Boolean,
+                    value: true
+                },
+                title:
+                {
+                    type: String,
+                    value: "Documents"
+                },
                 showGridButton:
                 {
                     type: Boolean,
