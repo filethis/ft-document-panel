@@ -136,6 +136,17 @@ A panel that displays a list of FileThis documents
                         on-click="_onDeleteButtonClicked">
                 </ft-icon-button>
 
+                <!-- Upload/download button group spacer -->
+                <div style$=width:20px;"></div>
+
+                <!-- Document count -->
+                <iron-label
+                        id="documentCount"
+                        hidden$="[[!showDocumentCount]]"
+                        style="font-family:Arial; font-size:14pt; ">
+                    [[documentCount]]
+                </iron-label>
+
                 <div class="flex"></div>
                 <div style="width:25px;"></div>
 
@@ -257,6 +268,14 @@ A panel that displays a list of FileThis documents
                     observer: "_selectedDocumentChanged"
                 },
 
+                /** The total number of documents. */
+                documentCount:
+                {
+                    type: Number,
+                    notify: true,
+                    value: 0
+                },
+
                 /** Show a title string. */
                 showTitle:
                 {
@@ -328,6 +347,14 @@ A panel that displays a list of FileThis documents
                     observer: "_showButtonChanged"
                 },
 
+                /** Show count of documents. */
+                showDocumentCount:
+                {
+                    type: Boolean,
+                    value: true,
+                    observer: "_showButtonChanged"
+                },
+
                 /** The FileThis ticket. Used for uploads. */
                 ticket:
                 {
@@ -382,11 +409,16 @@ A panel that displays a list of FileThis documents
                 return this.clientHeight - barHeight;
             },
 
-            // Man, this is fugly...
 
             _documentsChanged: function(to, from)
             {
+                // Man, this is fugly...
                 this._fixGrid();
+
+                var documentCount = 0;
+                if (!!this.documents)
+                    documentCount = this.documents.length;
+                this.documentCount = documentCount;
             },
 
             _fixGrid: function()
@@ -471,6 +503,8 @@ A panel that displays a list of FileThis documents
                 if (this._someUploadDownloadButtonShown())
                     return true;
                 if (this.showDeleteButton)
+                    return true;
+                if (this.showDocumentCount)
                     return true;
                 return false;
             },
