@@ -4,12 +4,12 @@
   "main": "ft-document-panel.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.1",
-    "ft-document-grid": "filethis/ft-document-grid#^0.0.5",
-    "ft-document-grid-item": "filethis/ft-document-grid-item#^0.0.5",
-    "ft-document-list": "filethis/ft-document-list#^0.0.8",
-    "ft-document-list-item": "filethis/ft-document-list-item#^0.0.7",
-    "ft-labeled-icon-button": "filethis/ft-labeled-icon-button#^0.0.4",
-    "ft-confirmation-dialog": "filethis/ft-confirmation-dialog#^0.0.3",
+    "ft-document-grid": "filethis/ft-document-grid#^0.0.6",
+    "ft-document-grid-item": "filethis/ft-document-grid-item#^0.0.6",
+    "ft-document-list": "filethis/ft-document-list#^0.0.9",
+    "ft-document-list-item": "filethis/ft-document-list-item#^0.0.8",
+    "ft-labeled-icon-button": "filethis/ft-labeled-icon-button#^0.0.2",
+    "ft-confirmation-dialog": "filethis/ft-confirmation-dialog#^0.0.4",
     "ft-scrolling-behavior": "filethis/ft-scrolling-behavior#^0.0.1",
     "iron-pages": "PolymerElements/iron-pages#^2.0.0",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
@@ -21,7 +21,5 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
-  },
-  "resolutions": {
   }
 }
