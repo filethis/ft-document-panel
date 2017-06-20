@@ -24,7 +24,7 @@ limitations under the License.
 
 <link rel="import" href="../ft-document-list/ft-document-list.html">
 <link rel="import" href="../ft-document-grid/ft-document-grid.html">
-<link rel="import" href="../ft-icon-button/ft-icon-button.html">
+<link rel="import" href="../ft-labeled-icon-button/ft-labeled-icon-button.html">
 <link rel="import" href="../ft-confirmation-dialog/ft-confirmation-dialog.html">
 <link rel="import" href="../ft-scrolling-behavior/ft-scrolling-behavior.html">
 
@@ -68,27 +68,27 @@ A panel that displays a list of FileThis documents
                 <div style$=width:[[_titleSpacerWidth]]px;"></div>
 
                 <!-- Grid button -->
-                <ft-icon-button
+                <ft-labeled-icon-button
                         id="defaultServerButton"
                         icon="apps"
                         label="Grid"
                         hidden$="[[!showGridButton]]"
                         style$="margin-right:5px;"
                         on-click="_onViewAsGridButtonClicked">
-                </ft-icon-button>
+                </ft-labeled-icon-button>
 
                 <!-- List button -->
-                <ft-icon-button
+                <ft-labeled-icon-button
                         id="listButton"
                         icon="view-headline"
                         label="List"
                         hidden$="[[!showListButton]]"
                         style$="margin-right:5px;"
                         on-click="_onViewAsListButtonClicked">
-                </ft-icon-button>
+                </ft-labeled-icon-button>
 
                 <!-- Preview button -->
-                <ft-icon-button
+                <ft-labeled-icon-button
                         id="previewButton"
                         icon="visibility"
                         label="Preview"
@@ -96,23 +96,23 @@ A panel that displays a list of FileThis documents
                         hidden$="[[!showPreviewButton]]"
                         style$="margin-right:5px;"
                         on-click="_onPreviewButtonClicked">
-                </ft-icon-button>
+                </ft-labeled-icon-button>
 
                 <!-- View button group spacer -->
                 <div style$=width:[[_viewButtonGroupSpacerWidth]]px;"></div>
 
                 <!-- Upload button -->
-                <ft-icon-button
+                <ft-labeled-icon-button
                         id="uploadButton"
                         icon="file-upload"
                         label="Upload"
                         hidden$="[[!showUploadButton]]"
                         style$="margin-right:5px;"
                         on-click="_onUploadButtonClicked">
-                </ft-icon-button>
+                </ft-labeled-icon-button>
 
                 <!-- Download button -->
-                <ft-icon-button
+                <ft-labeled-icon-button
                         id="downloadButton"
                         icon="file-download"
                         label="Down"
@@ -120,13 +120,13 @@ A panel that displays a list of FileThis documents
                         hidden$="[[!showDownloadButton]]"
                         style$="margin-right:5px;"
                         on-click="_onDownloadButtonClicked">
-                </ft-icon-button>
+                </ft-labeled-icon-button>
 
                 <!-- Upload/download button group spacer -->
                 <div style$=width:[[_uploadDownloadButtonGroupSpacerWidth]]px;"></div>
 
                 <!-- Delete button -->
-                <ft-icon-button
+                <ft-labeled-icon-button
                         id="deleteButton"
                         icon="delete"
                         label="Delete"
@@ -134,7 +134,7 @@ A panel that displays a list of FileThis documents
                         hidden$="[[!showDeleteButton]]"
                         style$="margin-right:5px;"
                         on-click="_onDeleteButtonClicked">
-                </ft-icon-button>
+                </ft-labeled-icon-button>
 
                 <!-- Upload/download button group spacer -->
                 <div style$=width:20px;"></div>
@@ -151,13 +151,13 @@ A panel that displays a list of FileThis documents
                 <div style="width:25px;"></div>
 
                 <!-- Details button -->
-                <!--<ft-icon-button-->
+                <!--<ft-labeled-icon-button-->
                         <!--id="detailsButton"-->
                         <!--icon="info-outline"-->
                         <!--label="Details"-->
                         <!--disabled="[[!_haveSelection]]"-->
                         <!--on-click="_onShowDetailsButtonClicked">-->
-                <!--</ft-icon-button>-->
+                <!--</ft-labeled-icon-button>-->
             </div>
 
             <!-- Views -->
