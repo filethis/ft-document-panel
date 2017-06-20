@@ -52,9 +52,9 @@ A panel that displays a list of FileThis documents
  -->
 <dom-module id="demo-fixture">
 
-    <style include="iron-flex iron-flex-alignment iron-positioning"></style>
-
     <template>
+
+        <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
         <style>
             :host {
@@ -73,7 +73,7 @@ A panel that displays a list of FileThis documents
         <div class="layout horizontal center">
 
             <!-- Settings -->
-            <div class="layout vertical center" style="width:300px">
+            <div class="layout vertical center" style="width:340px">
 
                 <paper-checkbox checked="{{showTitle}}">
                     Show Title
@@ -232,9 +232,9 @@ A panel that displays a list of FileThis documents
                     if (xmlHttpRequest.readyState === 4 &&
                         xmlHttpRequest.status === 200)
                     {
-                        panel.documents = JSON.parse(xmlHttpRequest.responseText);
+                        this.$.panel.documents = JSON.parse(xmlHttpRequest.responseText);
                     }
-                };
+                }.bind(this);
                 xmlHttpRequest.send();
             }
 
