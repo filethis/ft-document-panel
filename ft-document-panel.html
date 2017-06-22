@@ -165,13 +165,14 @@ A panel that displays a list of FileThis documents
                     id="views"
                     style="width:100%; height:100%; background-color:white; "
                     attr-for-selected="id"
-                    selected="{{selectedView}}">
+                    selected="[[selectedView]]">
 
                 <!-- Grid -->
                 <div
                         id="grid"
                         style="overflow:auto;">
                     <ft-document-grid
+                            id="documentGrid"
                             documents="[[documents]]"
                             selected-document="{{selectedDocument}}">
                     </ft-document-grid>
@@ -182,6 +183,7 @@ A panel that displays a list of FileThis documents
                         id="list"
                         style="overflow:auto">
                     <ft-document-list
+                            id="documentList"
                             style="border-bottom:1px solid #DDD"
                             documents="[[documents]]"
                             selected-document="{{selectedDocument}}">
@@ -414,6 +416,8 @@ A panel that displays a list of FileThis documents
             {
                 // Man, this is fugly...
                 this._fixGrid();
+//                this.$.documentGrid.fire('resize');
+//                this.$.documentList.fire('resize');
 
                 var documentCount = 0;
                 if (!!this.documents)
