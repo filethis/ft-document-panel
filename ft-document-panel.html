@@ -403,8 +403,8 @@ A panel that displays a list of FileThis documents
 
             _calculateScrollerHeight: function(scroller)
             {
-                const bar = this.$.buttonBar;
-                const barIsHidden = (bar.offsetParent === null);
+                var bar = this.$.buttonBar;
+                var barIsHidden = (bar.offsetParent === null);
                 var barHeight = 0;
                 if (!barIsHidden)
                     barHeight = bar.offsetHeight;
@@ -427,7 +427,7 @@ A panel that displays a list of FileThis documents
 
             _fixGrid: function()
             {
-                const currentSelectedViewId = this.selectedView;
+                var currentSelectedViewId = this.selectedView;
                 var tempSelectedViewId;
                 if (currentSelectedViewId === "list")
                     tempSelectedViewId = "grid";
@@ -469,14 +469,14 @@ A panel that displays a list of FileThis documents
 
             _onDeleteButtonClicked: function(event)
             {
-                const overrideWarning = event.metaKey;
+                var overrideWarning = event.metaKey;
                 if (overrideWarning)
                 {
                     this.fire('delete', this.selectedDocument);
                     return;
                 }
 
-                const prompt = "Are you sure you want to delete the selected document?";
+                var prompt = "Are you sure you want to delete the selected document?";
                 return this.$.confirmationDialog.confirm(prompt, "Delete Document")
                     .then(function(choice)
                     {
@@ -535,7 +535,7 @@ A panel that displays a list of FileThis documents
 
             _respaceButtons: function()
             {
-                const groupSpacerWidth = 30;
+                var groupSpacerWidth = 30;
 
                 var titleSpacerWidth = 0;
                 var viewButtonGroupSpacerWidth = 0;
