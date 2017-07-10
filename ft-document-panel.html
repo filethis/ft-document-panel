@@ -168,7 +168,7 @@ A panel that displays a list of FileThis documents
                 <!-- Grid -->
                 <div
                         id="grid"
-                        style="overflow:auto;">
+                        style="overflow:auto; background-color:white; ">
                     <ft-document-grid
                             id="documentGrid"
                             documents="[[documents]]"
@@ -179,7 +179,7 @@ A panel that displays a list of FileThis documents
                 <!-- List -->
                 <div
                         id="list"
-                        style="overflow:auto">
+                        style="overflow:auto; background-color:white; ">
                     <ft-document-list
                             id="documentList"
                             style="border-bottom:1px solid #DDD"
@@ -279,7 +279,7 @@ A panel that displays a list of FileThis documents
                 /** Show a title string. */
                 showTitle:
                 {
-                    type: Boolean,
+                    type: Object,  // Can't use Boolean
                     value: true,
                     observer: "_showButtonChanged"
                 },
@@ -302,7 +302,7 @@ A panel that displays a list of FileThis documents
                 /** Show a button that lets users choose to view documents in a grid. */
                 showGridButton:
                 {
-                    type: Boolean,
+                    type: Object,  // Can't use Boolean
                     value: true,
                     observer: "_showButtonChanged"
                 },
@@ -310,7 +310,7 @@ A panel that displays a list of FileThis documents
                 /** Show a button that lets users choose to view documents in a list. */
                 showListButton:
                 {
-                    type: Boolean,
+                    type: Object,  // Can't use Boolean
                     value: true,
                     observer: "_showButtonChanged"
                 },
@@ -318,7 +318,7 @@ A panel that displays a list of FileThis documents
                 /** Show a button that lets users choose to preview the selected document. */
                 showPreviewButton:
                 {
-                    type: Boolean,
+                    type: Object,  // Can't use Boolean
                     value: true,
                     observer: "_showButtonChanged"
                 },
@@ -326,7 +326,7 @@ A panel that displays a list of FileThis documents
                 /** Show a button that lets users upload document files. */
                 showUploadButton:
                 {
-                    type: Boolean,
+                    type: Object,  // Can't use Boolean
                     value: true,
                     observer: "_showButtonChanged"
                 },
@@ -334,7 +334,7 @@ A panel that displays a list of FileThis documents
                 /** Show a button that lets users download file for the selected document. */
                 showDownloadButton:
                 {
-                    type: Boolean,
+                    type: Object,  // Can't use Boolean
                     value: true,
                     observer: "_showButtonChanged"
                 },
@@ -342,7 +342,7 @@ A panel that displays a list of FileThis documents
                 /** Show a button that lets users delete the selected document. */
                 showDeleteButton:
                 {
-                    type: Boolean,
+                    type: Object,  // Can't use Boolean
                     value: true,
                     observer: "_showButtonChanged"
                 },
@@ -350,7 +350,7 @@ A panel that displays a list of FileThis documents
                 /** Show count of documents. */
                 showDocumentCount:
                 {
-                    type: Boolean,
+                    type: Object,  // Can't use Boolean
                     value: true,
                     observer: "_showButtonChanged"
                 },
