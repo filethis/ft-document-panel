@@ -35,13 +35,10 @@ limitations under the License.
 <!-- ft-document-panel element demo -->
 
 <!-- Imports -->
-<link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
-
-<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../../iron-input/iron-input.html">
-
+<link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../ft-document-panel.html">
+<link rel="import" href="./ft-document-panel-config.html">
 
 
 <!--
@@ -62,74 +59,20 @@ A panel that displays a list of FileThis documents
             }
         </style>
 
-        <style is="custom-style">
-
-            paper-checkbox {
-                width:165px;
-                margin-bottom:16px;
-            }
-        </style>
-
         <div class="layout horizontal center">
 
             <!-- Settings -->
-            <div class="layout vertical center" style="width:340px">
-
-                <paper-checkbox checked="{{showTitle}}">
-                    Show Title
-                </paper-checkbox>
-
-                <div class="layout horizontal">
-
-                    <!-- Label -->
-                    <div>
-                        Title:
-                    </div>
-
-                    <!-- Field -->
-                    <iron-input
-                           id="titleField"
-                           bind-value="{{title}}"
-                           style="font-family:Arial;
-                                    font-size:12px;
-                                    width:100px; height:28px;
-                                    padding-left:6px; padding-right:6px;
-                                    color:#343434;">
-                        <input value="{{value::input}}">
-                    </iron-input>
-
-                </div>
-
-                <div style="height:20px"></div>
-
-                <paper-checkbox checked="{{showGridButton}}">
-                    Show Grid Button
-                </paper-checkbox>
-
-                <paper-checkbox checked="{{showListButton}}">
-                    Show List Button
-                </paper-checkbox>
-
-                <paper-checkbox checked="{{showPreviewButton}}">
-                    Show Preview Button
-                </paper-checkbox>
-
-                <paper-checkbox checked="{{showUploadButton}}">
-                    Show Upload Button
-                </paper-checkbox>
-
-                <paper-checkbox checked="{{showDownloadButton}}">
-                    Show Download Button
-                </paper-checkbox>
-
-                <paper-checkbox checked="{{showDeleteButton}}">
-                    Show Delete Button
-                </paper-checkbox>
-
-                <paper-checkbox checked="{{showDocumentCountButton}}">
-                    Show Document Count
-                </paper-checkbox>
-            </div>
+            <ft-document-panel-config
+                    show-title="{{showTitle}}"
+                    title="{{title}}"
+                    show-grid-button="{{showGridButton}}"
+                    show-list-button="{{showListButton}}"
+                    show-preview-button="{{showPreviewButton}}"
+                    show-upload-button="{{showUploadButton}}"
+                    show-download-button="{{showDownloadButton}}"
+                    show-delete-button="{{showDeleteButton}}"
+                    show-document-count-button="{{showDocumentCountButton}}">
+            </ft-document-panel-config>
 
             <!-- Panel -->
             <div
@@ -149,7 +92,6 @@ A panel that displays a list of FileThis documents
                         style="width:700px; height:600px">
                 </ft-document-panel>
             </div>
-
         </div>
 
     </template>
