@@ -19,7 +19,6 @@ limitations under the License.
 <link rel="import" href="../ft-document-grid/ft-document-grid.html">
 <link rel="import" href="../ft-document-list/ft-document-list.html">
 <link rel="import" href="../ft-labeled-icon-button/ft-labeled-icon-button.html">
-<link rel="import" href="../ft-scrolling-behavior/ft-scrolling-behavior.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
@@ -43,169 +42,160 @@ This element displays a list of FileThis document resources. Above the list is a
         <style>
             :host {
                 display:block;
+                @apply --layout-vertical;
             }
         </style>
 
-        <div class="layout vertical">
+        <!-- Button bar -->
+        <div
+                id="buttonBar"
+                class="layout horizontal center"
+                hidden$="[[!_showButtonBar]]"
+                style="height:60px; padding-left:16px; padding-right:15px; border-bottom:1px solid #DDD;">
 
-            <!-- Button bar -->
+            <!-- Title -->
+            <iron-label
+                    hidden$="[[!showTitle]]"
+                    style="font-family:Arial; font-size:14pt; ">
+                [[title]]
+            </iron-label>
+
+            <!-- Title spacer -->
+            <div style$=width:[[_titleSpacerWidth]]px;"></div>
+
+            <!-- Grid button -->
+            <ft-labeled-icon-button
+                    id="defaultServerButton"
+                    icon="apps"
+                    label="Grid"
+                    hidden$="[[!showGridButton]]"
+                    style$="margin-right:5px;"
+                    on-tap="_onViewAsGridButtonClicked">
+            </ft-labeled-icon-button>
+
+            <!-- List button -->
+            <ft-labeled-icon-button
+                    id="listButton"
+                    icon="view-headline"
+                    label="List"
+                    hidden$="[[!showListButton]]"
+                    style$="margin-right:5px;"
+                    on-tap="_onViewAsListButtonClicked">
+            </ft-labeled-icon-button>
+
+            <!-- Preview button -->
+            <ft-labeled-icon-button
+                    id="previewButton"
+                    icon="visibility"
+                    label="Preview"
+                    disabled="[[!_haveSelection]]"
+                    hidden$="[[!showPreviewButton]]"
+                    style$="margin-right:5px;"
+                    on-tap="_onPreviewButtonClicked">
+            </ft-labeled-icon-button>
+
+            <!-- View button group spacer -->
+            <div style$=width:[[_viewButtonGroupSpacerWidth]]px;"></div>
+
+            <!-- Upload button -->
+            <ft-labeled-icon-button
+                    id="uploadButton"
+                    icon="file-upload"
+                    label="Upload"
+                    hidden$="[[!showUploadButton]]"
+                    style$="margin-right:5px;"
+                    on-tap="_onUploadButtonClicked">
+            </ft-labeled-icon-button>
+
+            <!-- Download button -->
+            <ft-labeled-icon-button
+                    id="downloadButton"
+                    icon="file-download"
+                    label="Down"
+                    disabled="[[!_haveSelection]]"
+                    hidden$="[[!showDownloadButton]]"
+                    style$="margin-right:5px;"
+                    on-tap="_onDownloadButtonClicked">
+            </ft-labeled-icon-button>
+
+            <!-- Upload/download button group spacer -->
+            <div style$=width:[[_uploadDownloadButtonGroupSpacerWidth]]px;"></div>
+
+            <!-- Delete button -->
+            <ft-labeled-icon-button
+                    id="deleteButton"
+                    icon="delete"
+                    label="Delete"
+                    disabled="[[!_haveSelection]]"
+                    hidden$="[[!showDeleteButton]]"
+                    style$="margin-right:5px;"
+                    on-tap="_onDeleteButtonClicked">
+            </ft-labeled-icon-button>
+
+            <!-- Upload/download button group spacer -->
+            <div style$=width:20px;"></div>
+
+            <!-- Document count -->
+            <iron-label
+                    id="documentCount"
+                    hidden$="[[!showDocumentCount]]"
+                    style="font-family:Arial; font-size:14pt; ">
+                [[documentCount]]
+            </iron-label>
+
+            <div class="flex"></div>
+            <div style="width:25px;"></div>
+
+            <!-- Details button -->
+            <!--<ft-labeled-icon-button-->
+                    <!--id="detailsButton"-->
+                    <!--icon="info-outline"-->
+                    <!--label="Details"-->
+                    <!--disabled="[[!_haveSelection]]"-->
+                    <!--on-tap="_onShowDetailsButtonClicked">-->
+            <!--</ft-labeled-icon-button>-->
+        </div>
+
+        <!-- Views -->
+        <iron-pages
+                id="views"
+                class="flex"
+                style="background-color:white; "
+                attr-for-selected="id"
+                selected="[[selectedView]]">
+
+            <!-- Grid -->
+            <ft-document-grid
+                    id="grid"
+                    style="width:100%; height:100%; "
+                    documents="[[documents]]"
+                    selected-document="{{selectedDocument}}">
+            </ft-document-grid>
+
+            <!-- List -->
+            <ft-document-list
+                    id="list"
+                    style="width:100%; height:100%; "
+                    documents="[[documents]]"
+                    selected-document="{{selectedDocument}}">
+            </ft-document-list>
+
+            <!-- Preview -->
             <div
-                    id="buttonBar"
-                    class="layout horizontal center"
-                    hidden$="[[!_showButtonBar]]"
-                    style="height:60px; padding-left:16px; padding-right:15px; border-bottom:1px solid #DDD;">
+                    id="preview"
+                    class="layout vertical center"
+                    style="width:100%; height:100%; ">
 
-                <!-- Title -->
-                <iron-label
-                        hidden$="[[!showTitle]]"
-                        style="font-family:Arial; font-size:14pt; ">
-                    [[title]]
+                <div style="height:100px;"></div>
+
+                <iron-label style="font-size:24pt">
+                    Document preview is coming soon
                 </iron-label>
 
-                <!-- Title spacer -->
-                <div style$=width:[[_titleSpacerWidth]]px;"></div>
-
-                <!-- Grid button -->
-                <ft-labeled-icon-button
-                        id="defaultServerButton"
-                        icon="apps"
-                        label="Grid"
-                        hidden$="[[!showGridButton]]"
-                        style$="margin-right:5px;"
-                        on-tap="_onViewAsGridButtonClicked">
-                </ft-labeled-icon-button>
-
-                <!-- List button -->
-                <ft-labeled-icon-button
-                        id="listButton"
-                        icon="view-headline"
-                        label="List"
-                        hidden$="[[!showListButton]]"
-                        style$="margin-right:5px;"
-                        on-tap="_onViewAsListButtonClicked">
-                </ft-labeled-icon-button>
-
-                <!-- Preview button -->
-                <ft-labeled-icon-button
-                        id="previewButton"
-                        icon="visibility"
-                        label="Preview"
-                        disabled="[[!_haveSelection]]"
-                        hidden$="[[!showPreviewButton]]"
-                        style$="margin-right:5px;"
-                        on-tap="_onPreviewButtonClicked">
-                </ft-labeled-icon-button>
-
-                <!-- View button group spacer -->
-                <div style$=width:[[_viewButtonGroupSpacerWidth]]px;"></div>
-
-                <!-- Upload button -->
-                <ft-labeled-icon-button
-                        id="uploadButton"
-                        icon="file-upload"
-                        label="Upload"
-                        hidden$="[[!showUploadButton]]"
-                        style$="margin-right:5px;"
-                        on-tap="_onUploadButtonClicked">
-                </ft-labeled-icon-button>
-
-                <!-- Download button -->
-                <ft-labeled-icon-button
-                        id="downloadButton"
-                        icon="file-download"
-                        label="Down"
-                        disabled="[[!_haveSelection]]"
-                        hidden$="[[!showDownloadButton]]"
-                        style$="margin-right:5px;"
-                        on-tap="_onDownloadButtonClicked">
-                </ft-labeled-icon-button>
-
-                <!-- Upload/download button group spacer -->
-                <div style$=width:[[_uploadDownloadButtonGroupSpacerWidth]]px;"></div>
-
-                <!-- Delete button -->
-                <ft-labeled-icon-button
-                        id="deleteButton"
-                        icon="delete"
-                        label="Delete"
-                        disabled="[[!_haveSelection]]"
-                        hidden$="[[!showDeleteButton]]"
-                        style$="margin-right:5px;"
-                        on-tap="_onDeleteButtonClicked">
-                </ft-labeled-icon-button>
-
-                <!-- Upload/download button group spacer -->
-                <div style$=width:20px;"></div>
-
-                <!-- Document count -->
-                <iron-label
-                        id="documentCount"
-                        hidden$="[[!showDocumentCount]]"
-                        style="font-family:Arial; font-size:14pt; ">
-                    [[documentCount]]
-                </iron-label>
-
-                <div class="flex"></div>
-                <div style="width:25px;"></div>
-
-                <!-- Details button -->
-                <!--<ft-labeled-icon-button-->
-                        <!--id="detailsButton"-->
-                        <!--icon="info-outline"-->
-                        <!--label="Details"-->
-                        <!--disabled="[[!_haveSelection]]"-->
-                        <!--on-tap="_onShowDetailsButtonClicked">-->
-                <!--</ft-labeled-icon-button>-->
+                <div style="height:100px;"></div>
             </div>
 
-            <!-- Views -->
-            <iron-pages
-                    id="views"
-                    style="width:100%; height:100%; background-color:white; "
-                    attr-for-selected="id"
-                    selected="[[selectedView]]">
-
-                <!-- Grid -->
-                <div
-                        id="grid"
-                        style="overflow:auto; background-color:white; ">
-                    <ft-document-grid
-                            id="documentGrid"
-                            documents="[[documents]]"
-                            selected-document="{{selectedDocument}}">
-                    </ft-document-grid>
-                </div>
-
-                <!-- List -->
-                <div
-                        id="list"
-                        style="overflow:auto; background-color:white; ">
-                    <ft-document-list
-                            id="documentList"
-                            style="border-bottom:1px solid #DDD"
-                            documents="[[documents]]"
-                            selected-document="{{selectedDocument}}">
-                    </ft-document-list>
-                </div>
-
-                <!-- Preview -->
-                <div
-                        id="preview"
-                        class="layout vertical center"
-                        style="width:100%; height:100%">
-
-                    <div style="height:100px;"></div>
-
-                    <iron-label style="font-size:24pt">
-                        Document preview is coming soon
-                    </iron-label>
-
-                    <div style="height:100px;"></div>
-                </div>
-
-            </iron-pages>
-
-        </div>
+        </iron-pages>
 
         <!-- Confirmation dialog -->
         <ft-confirmation-dialog id="confirmationDialog"></ft-confirmation-dialog>
@@ -216,11 +206,6 @@ This element displays a list of FileThis document resources. Above the list is a
         Polymer({
 
             is: 'ft-document-panel',
-
-            behaviors: [
-                Polymer.IronResizableBehavior,
-                FileThis.ScrollingBehavior
-            ],
 
             /**
              * Fired when the "Download" button is clicked.
@@ -446,26 +431,10 @@ This element displays a list of FileThis document resources. Above the list is a
                 }
             },
 
-            ready: function()
-            {
-                this._manageScroller(this.$.grid);
-                this._manageScroller(this.$.list);
-            },
-
-            _calculateScrollerHeight: function(scroller)
-            {
-                var bar = this.$.buttonBar;
-                var barIsHidden = (bar.offsetParent === null);
-                var barHeight = 0;
-                if (!barIsHidden)
-                    barHeight = bar.offsetHeight;
-                return this.clientHeight - barHeight;
-            },
-
-
             _documentsChanged: function(to, from)
             {
                 // Man, this is fugly...
+                // TODO: This can probably be replaced by a resize message sent to the iron-pages
                 this._fixGrid();
 //                this.$.documentGrid.fire('resize');
 //                this.$.documentList.fire('resize');
@@ -546,7 +515,6 @@ This element displays a list of FileThis document resources. Above the list is a
             {
                 this._showButtonBar = this._canShowButtonBar();
                 this._respaceButtons();
-                this.notifyResize();
             },
 
             _canShowButtonBar: function()

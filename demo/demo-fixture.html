@@ -71,10 +71,13 @@ A panel that displays a list of FileThis documents
             }
         </style>
 
-        <div class="layout horizontal center">
+        <ft-element-demo
+                style="width:100%; height:100%; ">
 
             <!-- Settings -->
             <ft-document-panel-config
+                    slot="config"
+                    style="height:100%; padding:20px; "
                     show-title="{{showTitle}}"
                     title="{{title}}"
                     show-grid-button="{{showGridButton}}"
@@ -87,24 +90,22 @@ A panel that displays a list of FileThis documents
             </ft-document-panel-config>
 
             <!-- Panel -->
-            <div
-                    class="layout vertical center"
-                    style="border:1px solid #DDD;">
-                <ft-document-panel
-                        id="panel"
-                        show-title="[[showTitle]]"
-                        title="[[title]]"
-                        show-grid-button="[[showGridButton]]"
-                        show-list-button="[[showListButton]]"
-                        show-preview-button="[[showPreviewButton]]"
-                        show-upload-button="[[showUploadButton]]"
-                        show-download-button="[[showDownloadButton]]"
-                        show-delete-button="[[showDeleteButton]]"
-                        show-document-count="[[showDocumentCountButton]]"
-                        style="width:700px; height:600px">
-                </ft-document-panel>
-            </div>
-        </div>
+            <ft-document-panel
+                    slot="element"
+                    id="panel"
+                    style="width:100%; height:100%; "
+                    show-title="[[showTitle]]"
+                    title="[[title]]"
+                    show-grid-button="[[showGridButton]]"
+                    show-list-button="[[showListButton]]"
+                    show-preview-button="[[showPreviewButton]]"
+                    show-upload-button="[[showUploadButton]]"
+                    show-download-button="[[showDownloadButton]]"
+                    show-delete-button="[[showDeleteButton]]"
+                    show-document-count="[[showDocumentCountButton]]">
+            </ft-document-panel>
+
+        </ft-element-demo>
 
     </template>
 
@@ -186,7 +187,8 @@ A panel that displays a list of FileThis documents
                     if (xmlHttpRequest.readyState === 4 &&
                         xmlHttpRequest.status === 200)
                     {
-                        this.$.panel.documents = JSON.parse(xmlHttpRequest.responseText);
+                        var documents = xmlHttpRequest.responseText;
+                        this.$.panel.documents = JSON.parse(documents);
                     }
                 }.bind(this);
                 xmlHttpRequest.send();
