@@ -234,6 +234,11 @@ This element displays a list of FileThis document resources. Above the list is a
              * @event show-details
              */
 
+            observers:
+            [
+                "_onConfigPropertyChanged(showTitle, title, showGridButton, showListButton, showPreviewButton, showUploadButton, showDownloadButton, showDeleteButton, showDocumentCount)"
+            ],
+
             properties: {
 
                 /** The list of documents resources to be displayed. */
@@ -272,8 +277,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 showTitle:
                 {
                     type: Object,
-                    value: true,
-                    observer: "_showButtonChanged"
+                    value: true
                 },
 
                 /** Title to display when "showTitle" is true. */
@@ -301,8 +305,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 showGridButton:
                 {
                     type: Object,
-                    value: true,
-                    observer: "_showButtonChanged"
+                    value: true
                 },
 
                 /**
@@ -315,8 +318,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 showListButton:
                 {
                     type: Object,
-                    value: true,
-                    observer: "_showButtonChanged"
+                    value: true
                 },
 
                 /**
@@ -329,8 +331,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 showPreviewButton:
                 {
                     type: Object,
-                    value: true,
-                    observer: "_showButtonChanged"
+                    value: true
                 },
 
                 /**
@@ -343,8 +344,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 showUploadButton:
                 {
                     type: Object,
-                    value: true,
-                    observer: "_showButtonChanged"
+                    value: true
                 },
 
                 /**
@@ -357,8 +357,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 showDownloadButton:
                 {
                     type: Object,
-                    value: true,
-                    observer: "_showButtonChanged"
+                    value: true
                 },
 
                 /**
@@ -371,8 +370,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 showDeleteButton:
                 {
                     type: Object,
-                    value: true,
-                    observer: "_showButtonChanged"
+                    value: true
                 },
 
                 /**
@@ -385,8 +383,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 showDocumentCount:
                 {
                     type: Object,
-                    value: true,
-                    observer: "_showButtonChanged"
+                    value: true
                 },
 
                 /** The FileThis ticket. Used for uploads. */
@@ -429,7 +426,15 @@ This element displays a list of FileThis document resources. Above the list is a
                 {
                     type: Boolean,
                     value: false
+                },
+
+                /** The instantiation code. */
+                code: {
+                    type: String,
+                    notify: true,
+                    value: ""
                 }
+
             },
 
             _documentsChanged: function(to, from)
@@ -512,7 +517,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 this.fire('show-details');
             },
 
-            _showButtonChanged: function(to, from)
+            _showButtonChanged: function()
             {
                 this._showButtonBar = this._canShowButtonBar();
                 this._respaceButtons();
@@ -571,6 +576,45 @@ This element displays a list of FileThis document resources. Above the list is a
                 this._titleSpacerWidth = titleSpacerWidth;
                 this._viewButtonGroupSpacerWidth = viewButtonGroupSpacerWidth;
                 this._uploadDownloadButtonGroupSpacerWidth = uploadDownloadButtonGroupSpacerWidth;
+            },
+
+            _onConfigPropertyChanged: function(to, from)
+            {
+                this._invalidChangedDebouncer = Polymer.Debouncer.debounce
+                (
+                    this._configPropertyChangedDebouncer,
+                    Polymer.Async.timeOut.after(60),
+                    this.__onConfigPropertyChangedDebounced.bind(this)
+                );
+            },
+
+            __onConfigPropertyChangedDebounced: function()
+            {
+                this._showButtonChanged();
+
+                var code =
+                    "<{{name}}\n" +
+                    "    showTitle='{{showTitle}}'\n" +
+                    "    title='{{title}}'\n" +
+                    "    showGridButton='{{showGridButton}}'\n" +
+                    "    showListButton='{{showListButton}}'\n" +
+                    "    showPreviewButton='{{showPreviewButton}}'\n" +
+                    "    showUploadButton='{{showUploadButton}}'\n" +
+                    "    showDownloadButton='{{showDownloadButton}}'\n" +
+                    "    showDeleteButton='{{showDeleteButton}}'\n" +
+                    "    showDocumentCount='{{showDocumentCount}}'>\n" +
+                    "</{{name}}>";
+                code = code.replace(/{{name}}/g, this.localName);
+                code = code.replace(/{{showTitle}}/g, this.showTitle);
+                code = code.replace(/{{title}}/g, this.title);
+                code = code.replace(/{{showGridButton}}/g, this.showGridButton);
+                code = code.replace(/{{showListButton}}/g, this.showListButton);
+                code = code.replace(/{{showPreviewButton}}/g, this.showPreviewButton);
+                code = code.replace(/{{showUploadButton}}/g, this.showUploadButton);
+                code = code.replace(/{{showDownloadButton}}/g, this.showDownloadButton);
+                code = code.replace(/{{showDeleteButton}}/g, this.showDeleteButton);
+                code = code.replace(/{{showDocumentCount}}/g, this.showDocumentCount);
+                this.code = code;
             }
 
         });
