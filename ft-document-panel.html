@@ -161,7 +161,7 @@ This element displays a list of FileThis document resources. Above the list is a
         <!-- Views -->
         <iron-pages
                 id="views"
-                class="flex"
+                class="flex layout vertical"
                 style="background-color:white; "
                 attr-for-selected="id"
                 selected="[[selectedView]]">
@@ -169,7 +169,7 @@ This element displays a list of FileThis document resources. Above the list is a
             <!-- Grid -->
             <ft-document-grid
                     id="grid"
-                    style="width:100%; height:100%; "
+                    class="flex"
                     documents="[[documents]]"
                     selected-document="{{selectedDocument}}">
             </ft-document-grid>
@@ -177,7 +177,7 @@ This element displays a list of FileThis document resources. Above the list is a
             <!-- List -->
             <ft-document-list
                     id="list"
-                    style="width:100%; height:100%; "
+                    class="flex"
                     documents="[[documents]]"
                     selected-document="{{selectedDocument}}">
             </ft-document-list>
@@ -185,8 +185,7 @@ This element displays a list of FileThis document resources. Above the list is a
             <!-- Preview -->
             <div
                     id="preview"
-                    class="layout vertical center"
-                    style="width:100%; height:100%; ">
+                    class="flex layout vertical center">
 
                 <div style="height:100px;"></div>
 
