@@ -485,12 +485,12 @@ This element displays a list of FileThis document resources. Above the list is a
 
             _onDownloadButtonClicked: function(event)
             {
-                this.fire('download', this.selectedDocument);
+                this.fire('download-documents-command', this.selectedDocument);
             },
 
             _onUploadButtonClicked: function(event)
             {
-                this.fire('upload');
+                this.fire('upload-documents-command');
             },
 
             _onDeleteButtonClicked: function(event)
@@ -498,7 +498,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 var overrideWarning = event.metaKey;
                 if (overrideWarning)
                 {
-                    this.fire('delete', this.selectedDocument);
+                    this.fire('delete-document-command', this.selectedDocument);
                     return;
                 }
 
@@ -508,13 +508,13 @@ This element displays a list of FileThis document resources. Above the list is a
                     {
                         if (choice === "cancel")
                             return;
-                        this.fire('delete', this.selectedDocument);
+                        this.fire('delete-document-command', this.selectedDocument);
                     }.bind(this))
             },
 
             _onShowDetailsButtonClicked: function(event)
             {
-                this.fire('show-details');
+                this.fire('show-details-command');
             },
 
             _showButtonChanged: function()
