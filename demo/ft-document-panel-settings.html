@@ -28,7 +28,7 @@ This element defines a source grid example that allows experimentation with conf
 
 @demo
  -->
-<dom-module id="ft-document-panel-config">
+<dom-module id="ft-document-panel-settings">
 
     <template>
 
@@ -38,6 +38,8 @@ This element defines a source grid example that allows experimentation with conf
             :host {
                 display:block;
                 overflow:hidden;
+                @apply --layout-vertical;
+                @apply --ft-document-panel-settings;
             }
         </style>
 
@@ -50,63 +52,60 @@ This element defines a source grid example that allows experimentation with conf
         </style>
 
         <!-- Settings -->
-        <div class="layout vertical center" style="width:340px">
+        <paper-checkbox checked="{{showTitle}}">
+            Show Title
+        </paper-checkbox>
 
-            <paper-checkbox checked="{{showTitle}}">
-                Show Title
-            </paper-checkbox>
+        <div class="layout horizontal">
 
-            <div class="layout horizontal">
-
-                <!-- Label -->
-                <div>
-                    Title:
-                </div>
-
-                <!-- Field -->
-                <iron-input
-                       id="titleField"
-                       bind-value="{{title}}"
-                       style="font-family:Arial;
-                                font-size:12px;
-                                width:100px; height:28px;
-                                padding-left:6px; padding-right:6px;
-                                color:#343434;">
-                    <input value="{{value::input}}">
-                </iron-input>
-
+            <!-- Label -->
+            <div>
+                Title:
             </div>
 
-            <div style="height:20px"></div>
+            <!-- Field -->
+            <iron-input
+                   id="titleField"
+                   bind-value="{{title}}"
+                   style="font-family:Arial;
+                            font-size:12px;
+                            width:100px; height:28px;
+                            padding-left:6px; padding-right:6px;
+                            color:#343434;">
+                <input value="{{value::input}}">
+            </iron-input>
 
-            <paper-checkbox checked="{{showGridButton}}">
-                Show Grid Button
-            </paper-checkbox>
-
-            <paper-checkbox checked="{{showListButton}}">
-                Show List Button
-            </paper-checkbox>
-
-            <paper-checkbox checked="{{showPreviewButton}}">
-                Show Preview Button
-            </paper-checkbox>
-
-            <paper-checkbox checked="{{showUploadButton}}">
-                Show Upload Button
-            </paper-checkbox>
-
-            <paper-checkbox checked="{{showDownloadButton}}">
-                Show Download Button
-            </paper-checkbox>
-
-            <paper-checkbox checked="{{showDeleteButton}}">
-                Show Delete Button
-            </paper-checkbox>
-
-            <paper-checkbox checked="{{showDocumentCountButton}}">
-                Show Document Count
-            </paper-checkbox>
         </div>
+
+        <div style="height:20px"></div>
+
+        <paper-checkbox checked="{{showGridButton}}">
+            Show Grid Button
+        </paper-checkbox>
+
+        <paper-checkbox checked="{{showListButton}}">
+            Show List Button
+        </paper-checkbox>
+
+        <paper-checkbox checked="{{showPreviewButton}}">
+            Show Preview Button
+        </paper-checkbox>
+
+        <paper-checkbox checked="{{showUploadButton}}">
+            Show Upload Button
+        </paper-checkbox>
+
+        <paper-checkbox checked="{{showDownloadButton}}" style="width:190px; ">
+            Show Download Button
+        </paper-checkbox>
+
+        <paper-checkbox checked="{{showDeleteButton}}">
+            Show Delete Button
+        </paper-checkbox>
+
+        <paper-checkbox checked="{{showDocumentCountButton}}" style="width:190px; ">
+            Show Document Count
+        </paper-checkbox>
 
     </template>
 
@@ -114,7 +113,7 @@ This element defines a source grid example that allows experimentation with conf
 
         Polymer
         ({
-            is: 'ft-document-panel-config',
+            is: 'ft-document-panel-settings',
 
             properties:
             {

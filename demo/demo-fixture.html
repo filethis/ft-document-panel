@@ -39,7 +39,7 @@ limitations under the License.
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../ft-document-panel.html">
-<link rel="import" href="./ft-document-panel-config.html">
+<link rel="import" href="./ft-document-panel-settings.html">
 
 
 <!--
@@ -69,7 +69,7 @@ A panel that displays a list of FileThis documents
                 code="[[code]]">
 
             <!-- Settings -->
-            <ft-document-panel-config
+            <ft-document-panel-settings
                     slot="config"
                     style="height:100%; padding:20px; "
                     show-title="{{showTitle}}"
@@ -81,7 +81,7 @@ A panel that displays a list of FileThis documents
                     show-download-button="{{showDownloadButton}}"
                     show-delete-button="{{showDeleteButton}}"
                     show-document-count-button="{{showDocumentCountButton}}">
-            </ft-document-panel-config>
+            </ft-document-panel-settings>
 
             <!-- Panel -->
             <ft-document-panel

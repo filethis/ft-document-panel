@@ -615,7 +615,54 @@ This element displays a list of FileThis document resources. Above the list is a
                 code = code.replace(/{{showDeleteButton}}/g, this.showDeleteButton);
                 code = code.replace(/{{showDocumentCount}}/g, this.showDocumentCount);
                 this.code = code;
-            }
+            },
+
+            generateSettings: function()
+            {
+                // NOTE: Must keep the default values here up to date with properties
+                var config = {};
+                if (this.showTitle !== true)
+                    config.showTitle = this.showTitle;
+                if (this.title !== "Documents")
+                    config.title = this.title;
+                if (this.showGridButton !== true)
+                    config.showGridButton = this.showGridButton;
+                if (this.showListButton !== true)
+                    config.showListButton = this.showListButton;
+                if (this.showPreviewButton !== true)
+                    config.showPreviewButton = this.showPreviewButton;
+                if (this.showUploadButton !== true)
+                    config.showUploadButton = this.showUploadButton;
+                if (this.showDownloadButton !== true)
+                    config.showDownloadButton = this.showDownloadButton;
+                if (this.showDeleteButton !== true)
+                    config.showDeleteButton = this.showDeleteButton;
+                if (this.showDocumentCount !== true)
+                    config.showDocumentCount = this.showDocumentCount;
+                return config;
+            },
+
+            applySettings: function(settings)
+            {
+                if (settings.showTitle)
+                    this.showTitle = settings.showTitle;
+                if (settings.title)
+                    this.title = settings.title;
+                if (settings.showGridButton)
+                    this.showGridButton = settings.showGridButton;
+                if (settings.showListButton)
+                    this.showListButton = settings.showListButton;
+                if (settings.showPreviewButton)
+                    this.showPreviewButton = settings.showPreviewButton;
+                if (settings.showUploadButton)
+                    this.showUploadButton = settings.showUploadButton;
+                if (settings.showDownloadButton)
+                    this.showDownloadButton = settings.showDownloadButton;
+                if (settings.showDeleteButton)
+                    this.showDeleteButton = settings.showDeleteButton;
+                if (settings.showDocumentCount)
+                    this.showDocumentCount = settings.showDocumentCount;
+            },
 
         });
     </script>
