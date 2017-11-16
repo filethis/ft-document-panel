@@ -19,6 +19,8 @@ limitations under the License.
 <link rel="import" href="../ft-document-grid/ft-document-grid.html">
 <link rel="import" href="../ft-document-list/ft-document-list.html">
 <link rel="import" href="../ft-labeled-icon-button/ft-labeled-icon-button.html">
+<link rel="import" href="../ft-settings/ft-settings-applier-behavior.html">
+<link rel="import" href="../ft-settings/ft-settings-publisher-behavior.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
@@ -236,7 +238,12 @@ This element displays a list of FileThis document resources. Above the list is a
 
             observers:
             [
-                "_onConfigPropertyChanged(showTitle, title, showGridButton, showListButton, showPreviewButton, showUploadButton, showDownloadButton, showDeleteButton, showDocumentCount)"
+                "_onSettingsPropertyChanged(showTitle, title, showGridButton, showListButton, showPreviewButton, showUploadButton, showDownloadButton, showDeleteButton, showDocumentCount)"
+            ],
+
+            behaviors: [
+                FileThis.SettingsPublisherBehavior,
+                FileThis.SettingsApplierBehavior,
             ],
 
             properties: {
@@ -437,6 +444,12 @@ This element displays a list of FileThis document resources. Above the list is a
 
             },
 
+            ready: function()
+            {
+                var propertyNames = [ "showTitle", "title", "showGridButton", "showListButton", "showPreviewButton" , "showUploadButton" , "showDownloadButton" , "showDeleteButton" , "showDocumentCount" ];
+                this.settingsPublish("ft-document-panel", propertyNames);
+            },
+
             _documentsChanged: function(to, from)
             {
                 // Man, this is fugly...
@@ -578,90 +591,44 @@ This element displays a list of FileThis document resources. Above the list is a
                 this._uploadDownloadButtonGroupSpacerWidth = uploadDownloadButtonGroupSpacerWidth;
             },
 
-            _onConfigPropertyChanged: function(to, from)
-            {
-                this._configPropertyChangedDebouncer = Polymer.Debouncer.debounce
-                (
-                    this._configPropertyChangedDebouncer,
-                    Polymer.Async.timeOut.after(60),
-                    this._onConfigPropertyChangedDebounced.bind(this)
-                );
-            },
-
-            _onConfigPropertyChangedDebounced: function()
+            _onSettingsPropertyChanged: function()
             {
                 this._showButtonChanged();
 
-                var code =
-                    "<{{name}}\n" +
-                    "    showTitle='{{showTitle}}'\n" +
-                    "    title='{{title}}'\n" +
-                    "    showGridButton='{{showGridButton}}'\n" +
-                    "    showListButton='{{showListButton}}'\n" +
-                    "    showPreviewButton='{{showPreviewButton}}'\n" +
-                    "    showUploadButton='{{showUploadButton}}'\n" +
-                    "    showDownloadButton='{{showDownloadButton}}'\n" +
-                    "    showDeleteButton='{{showDeleteButton}}'\n" +
-                    "    showDocumentCount='{{showDocumentCount}}'>\n" +
-                    "</{{name}}>";
-                code = code.replace(/{{name}}/g, this.localName);
-                code = code.replace(/{{showTitle}}/g, this.showTitle);
-                code = code.replace(/{{title}}/g, this.title);
-                code = code.replace(/{{showGridButton}}/g, this.showGridButton);
-                code = code.replace(/{{showListButton}}/g, this.showListButton);
-                code = code.replace(/{{showPreviewButton}}/g, this.showPreviewButton);
-                code = code.replace(/{{showUploadButton}}/g, this.showUploadButton);
-                code = code.replace(/{{showDownloadButton}}/g, this.showDownloadButton);
-                code = code.replace(/{{showDeleteButton}}/g, this.showDeleteButton);
-                code = code.replace(/{{showDocumentCount}}/g, this.showDocumentCount);
-                this.code = code;
+                this.updateSettings();
             },
 
-            generateSettings: function()
+            _old: function()
             {
-                // NOTE: Must keep the default values here up to date with properties
-                var config = {};
-                if (this.showTitle !== true)
-                    config.showTitle = this.showTitle;
-                if (this.title !== "Documents")
-                    config.title = this.title;
-                if (this.showGridButton !== true)
-                    config.showGridButton = this.showGridButton;
-                if (this.showListButton !== true)
-                    config.showListButton = this.showListButton;
-                if (this.showPreviewButton !== true)
-                    config.showPreviewButton = this.showPreviewButton;
-                if (this.showUploadButton !== true)
-                    config.showUploadButton = this.showUploadButton;
-                if (this.showDownloadButton !== true)
-                    config.showDownloadButton = this.showDownloadButton;
-                if (this.showDeleteButton !== true)
-                    config.showDeleteButton = this.showDeleteButton;
-                if (this.showDocumentCount !== true)
-                    config.showDocumentCount = this.showDocumentCount;
-                return config;
-            },
+                this._showButtonChanged();
 
-            applySettings: function(settings)
-            {
-                if (settings.showTitle)
-                    this.showTitle = settings.showTitle;
-                if (settings.title)
-                    this.title = settings.title;
-                if (settings.showGridButton)
-                    this.showGridButton = settings.showGridButton;
-                if (settings.showListButton)
-                    this.showListButton = settings.showListButton;
-                if (settings.showPreviewButton)
-                    this.showPreviewButton = settings.showPreviewButton;
-                if (settings.showUploadButton)
-                    this.showUploadButton = settings.showUploadButton;
-                if (settings.showDownloadButton)
-                    this.showDownloadButton = settings.showDownloadButton;
-                if (settings.showDeleteButton)
-                    this.showDeleteButton = settings.showDeleteButton;
-                if (settings.showDocumentCount)
-                    this.showDocumentCount = settings.showDocumentCount;
+                // Update the settings
+                this.updateSettings();
+
+                // Update the code
+//                var code =
+//                    "<{{name}}\n" +
+//                    "    showTitle='{{showTitle}}'\n" +
+//                    "    show-title='{{title}}'\n" +
+//                    "    show-grid-button='{{showGridButton}}'\n" +
+//                    "    show-list-button='{{showListButton}}'\n" +
+//                    "    show-preview-button='{{showPreviewButton}}'\n" +
+//                    "    show-updload-button='{{showUploadButton}}'\n" +
+//                    "    show-download-button='{{showDownloadButton}}'\n" +
+//                    "    show-delete-button='{{showDeleteButton}}'\n" +
+//                    "    show-document-button='{{showDocumentCount}}'>\n" +
+//                    "</{{name}}>";
+//                code = code.replace(/{{name}}/g, this.localName);
+//                code = code.replace(/{{showTitle}}/g, this.showTitle);
+//                code = code.replace(/{{title}}/g, this.title);
+//                code = code.replace(/{{showGridButton}}/g, this.showGridButton);
+//                code = code.replace(/{{showListButton}}/g, this.showListButton);
+//                code = code.replace(/{{showPreviewButton}}/g, this.showPreviewButton);
+//                code = code.replace(/{{showUploadButton}}/g, this.showUploadButton);
+//                code = code.replace(/{{showDownloadButton}}/g, this.showDownloadButton);
+//                code = code.replace(/{{showDeleteButton}}/g, this.showDeleteButton);
+//                code = code.replace(/{{showDocumentCount}}/g, this.showDocumentCount);
+//                this.code = code;
             },
 
         });

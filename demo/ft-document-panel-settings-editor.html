@@ -16,6 +16,7 @@ limitations under the License.
 
 
 <!-- Imports -->
+<link rel="import" href="../../ft-settings/ft-settings-publisher-behavior.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../iron-input/iron-input.html">
 <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
@@ -28,7 +29,7 @@ This element defines a source grid example that allows experimentation with conf
 
 @demo
  -->
-<dom-module id="ft-document-panel-settings">
+<dom-module id="ft-document-panel-settings-editor">
 
     <template>
 
@@ -39,7 +40,7 @@ This element defines a source grid example that allows experimentation with conf
                 display:block;
                 overflow:hidden;
                 @apply --layout-vertical;
-                @apply --ft-document-panel-settings;
+                @apply --ft-document-panel-settings-editor;
             }
         </style>
 
@@ -113,7 +114,16 @@ This element defines a source grid example that allows experimentation with conf
 
         Polymer
         ({
-            is: 'ft-document-panel-settings',
+            is: 'ft-document-panel-settings-editor',
+
+            behaviors: [
+                FileThis.SettingsPublisherBehavior
+            ],
+
+            observers:
+            [
+                "_onSettingsPropertyChanged(showTitle, title, showGridButton, showListButton, showPreviewButton, showUploadButton, showDownloadButton, showDeleteButton, showDocumentCount)"
+            ],
 
             properties:
             {
@@ -177,7 +187,21 @@ This element defines a source grid example that allows experimentation with conf
                     notify: true,
                     value: true
                 }
-            }
+            },
+
+            ready: function()
+            {
+                var propertyNames = [
+                    "showTitle", "title", "showGridButton", "showListButton", "showPreviewButton",
+                    "showUploadButton", "showDownloadButton", "showDeleteButton", "showDocumentCountButton"
+                ];
+                this.settingsPublish("ft-document-panel-settings-editor", propertyNames);
+            },
+
+            _onSettingsPropertyChanged: function()
+            {
+                this.updateSettings();
+            },
 
         });
 
