@@ -18,15 +18,15 @@ limitations under the License.
 <link rel="import" href="../ft-confirmation-dialog/ft-confirmation-dialog.html">
 <link rel="import" href="../ft-document-grid/ft-document-grid.html">
 <link rel="import" href="../ft-document-list/ft-document-list.html">
+<link rel="import" href="../ft-global-variable/ft-global-variable.html">
 <link rel="import" href="../ft-labeled-icon-button/ft-labeled-icon-button.html">
-<link rel="import" href="../ft-settings/ft-settings-applier-behavior.html">
-<link rel="import" href="../ft-settings/ft-settings-publisher-behavior.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../shadycss/apply-shim.html">
+<link rel="import" href="ft-document-panel-settings-behavior.html">
 
 <!--
 `<ft-document-panel>`
@@ -50,6 +50,17 @@ This element displays a list of FileThis document resources. Above the list is a
             }
         </style>
 
+        <!-- Settings -->
+        <ft-global-variable name="ft-document-panel-showHeading" value="{{showHeading}}"></ft-global-variable>
+        <ft-global-variable name="ft-document-panel-heading" value="{{heading}}"></ft-global-variable>
+        <ft-global-variable name="ft-document-panel-show-grid-button" value="{{showGridButton}}"></ft-global-variable>
+        <ft-global-variable name="ft-document-panel-show-list-button" value="{{showListButton}}"></ft-global-variable>
+        <ft-global-variable name="ft-document-panel-show-preview-button" value="{{showPreviewButton}}"></ft-global-variable>
+        <ft-global-variable name="ft-document-panel-show-upload-button" value="{{showUploadButton}}"></ft-global-variable>
+        <ft-global-variable name="ft-document-panel-show-download-button" value="{{showDownloadButton}}"></ft-global-variable>
+        <ft-global-variable name="ft-document-panel-show-delete-button" value="{{showDeleteButton}}"></ft-global-variable>
+        <ft-global-variable name="ft-document-panel-show-document-count" value="{{showDocumentCount}}"></ft-global-variable>
+
         <!-- Button bar -->
         <div
                 id="buttonBar"
@@ -57,15 +68,15 @@ This element displays a list of FileThis document resources. Above the list is a
                 hidden$="[[!_showButtonBar]]"
                 style="height:60px; padding-left:16px; padding-right:15px; border-bottom:1px solid #DDD;">
 
-            <!-- Title -->
+            <!-- Heading -->
             <iron-label
-                    hidden$="[[!showTitle]]"
+                    hidden$="[[!showHeading]]"
                     style="font-family:Arial; font-size:14pt; ">
-                [[title]]
+                [[heading]]
             </iron-label>
 
-            <!-- Title spacer -->
-            <div style$=width:[[_titleSpacerWidth]]px;"></div>
+            <!-- Heading spacer -->
+            <div style$=width:[[_headingSpacerWidth]]px;"></div>
 
             <!-- Grid button -->
             <ft-labeled-icon-button
@@ -236,14 +247,11 @@ This element displays a list of FileThis document resources. Above the list is a
              * @event show-details
              */
 
+            behaviors: [FileThis.DocumentPanelSettingsBehavior],
+
             observers:
             [
-                "_onSettingsPropertyChanged(showTitle, title, showGridButton, showListButton, showPreviewButton, showUploadButton, showDownloadButton, showDeleteButton, showDocumentCount)"
-            ],
-
-            behaviors: [
-                FileThis.SettingsPublisherBehavior,
-                FileThis.SettingsApplierBehavior,
+                "_onSettingsPropertyChanged(showHeading, heading, showGridButton, showListButton, showPreviewButton, showUploadButton, showDownloadButton, showDeleteButton, showDocumentCount)"
             ],
 
             properties: {
@@ -274,123 +282,12 @@ This element displays a list of FileThis document resources. Above the list is a
                     value: 0
                 },
 
-                /**
-                 * Show a title string.
-                 *
-                 * Note that you can provide the strings "true" and "false" as attribute values .
-                 *
-                 * @type {boolean}
-                 */
-                showTitle:
-                {
-                    type: Object,
-                    value: true
-                },
-
-                /** Title to display when "showTitle" is true. */
-                title:
-                {
-                    type: String,
-                    value: "Documents"
-                },
-
                 /** The currently-selected view of the document(s). Must be one of: "grid", "list", "preview". */
                 selectedView:
                 {
                     type: String,
                     notify: true,
                     value: "grid"
-                },
-
-                /**
-                 * Show a button that lets users choose to view documents in a grid.
-                 *
-                 * Note that you can provide the strings "true" and "false" as attribute values .
-                 *
-                 * @type {boolean}
-                 */
-                showGridButton:
-                {
-                    type: Object,
-                    value: true
-                },
-
-                /**
-                 * Show a button that lets users choose to view documents in a list.
-                 *
-                 * Note that you can provide the strings "true" and "false" as attribute values .
-                 *
-                 * @type {boolean}
-                 */
-                showListButton:
-                {
-                    type: Object,
-                    value: true
-                },
-
-                /**
-                 * Show a button that lets users choose to preview the selected document.
-                 *
-                 * Note that you can provide the strings "true" and "false" as attribute values .
-                 *
-                 * @type {boolean}
-                 */
-                showPreviewButton:
-                {
-                    type: Object,
-                    value: true
-                },
-
-                /**
-                 * Show a button that lets users upload document files.
-                 *
-                 * Note that you can provide the strings "true" and "false" as attribute values .
-                 *
-                 * @type {boolean}
-                 */
-                showUploadButton:
-                {
-                    type: Object,
-                    value: true
-                },
-
-                /**
-                 * Show a button that lets users download file for the selected document.
-                 *
-                 * Note that you can provide the strings "true" and "false" as attribute values .
-                 *
-                 * @type {boolean}
-                 */
-                showDownloadButton:
-                {
-                    type: Object,
-                    value: true
-                },
-
-                /**
-                 * Show a button that lets users delete the selected document.
-                 *
-                 * Note that you can provide the strings "true" and "false" as attribute values .
-                 *
-                 * @type {boolean}
-                 */
-                showDeleteButton:
-                {
-                    type: Object,
-                    value: true
-                },
-
-                /**
-                 * Show count of documents.
-                 *
-                 * Note that you can provide the strings "true" and "false" as attribute values .
-                 *
-                 * @type {boolean}
-                 */
-                showDocumentCount:
-                {
-                    type: Object,
-                    value: true
                 },
 
                 /** The FileThis ticket. Used for uploads. */
@@ -407,8 +304,8 @@ This element displays a list of FileThis document resources. Above the list is a
                     value: true
                 },
 
-                /** Horizontal space to use between the title and any buttons that follow to the right. */
-                _titleSpacerWidth:
+                /** Horizontal space to use between the heading and any buttons that follow to the right. */
+                _headingSpacerWidth:
                 {
                     type: Number,
                     value: 30
@@ -435,19 +332,6 @@ This element displays a list of FileThis document resources. Above the list is a
                     value: false
                 },
 
-                /** The instantiation code. */
-                code: {
-                    type: String,
-                    notify: true,
-                    value: ""
-                }
-
-            },
-
-            ready: function()
-            {
-                var propertyNames = [ "showTitle", "title", "showGridButton", "showListButton", "showPreviewButton" , "showUploadButton" , "showDownloadButton" , "showDeleteButton" , "showDocumentCount" ];
-                this.settingsPublish("ft-document-panel", propertyNames);
             },
 
             _documentsChanged: function(to, from)
@@ -538,7 +422,7 @@ This element displays a list of FileThis document resources. Above the list is a
 
             _canShowButtonBar: function()
             {
-                if (this.showTitle)
+                if (this.showHeading)
                     return true;
                 if (this._someViewButtonShown())
                     return true;
@@ -575,18 +459,18 @@ This element displays a list of FileThis document resources. Above the list is a
             {
                 var groupSpacerWidth = 30;
 
-                var titleSpacerWidth = 0;
+                var headingSpacerWidth = 0;
                 var viewButtonGroupSpacerWidth = 0;
                 var uploadDownloadButtonGroupSpacerWidth = 0;
 
-                if (this.showTitle)
-                    titleSpacerWidth = groupSpacerWidth;
+                if (this.showHeading)
+                    headingSpacerWidth = groupSpacerWidth;
                 if (this._someViewButtonShown())
                     viewButtonGroupSpacerWidth = groupSpacerWidth;
                 if (this._someUploadDownloadButtonShown())
                     uploadDownloadButtonGroupSpacerWidth = groupSpacerWidth;
 
-                this._titleSpacerWidth = titleSpacerWidth;
+                this._headingSpacerWidth = headingSpacerWidth;
                 this._viewButtonGroupSpacerWidth = viewButtonGroupSpacerWidth;
                 this._uploadDownloadButtonGroupSpacerWidth = uploadDownloadButtonGroupSpacerWidth;
             },
@@ -595,40 +479,7 @@ This element displays a list of FileThis document resources. Above the list is a
             {
                 this._showButtonChanged();
 
-                this.updateSettings();
-            },
-
-            _old: function()
-            {
-                this._showButtonChanged();
-
-                // Update the settings
-                this.updateSettings();
-
-                // Update the code
-//                var code =
-//                    "<{{name}}\n" +
-//                    "    showTitle='{{showTitle}}'\n" +
-//                    "    show-title='{{title}}'\n" +
-//                    "    show-grid-button='{{showGridButton}}'\n" +
-//                    "    show-list-button='{{showListButton}}'\n" +
-//                    "    show-preview-button='{{showPreviewButton}}'\n" +
-//                    "    show-updload-button='{{showUploadButton}}'\n" +
-//                    "    show-download-button='{{showDownloadButton}}'\n" +
-//                    "    show-delete-button='{{showDeleteButton}}'\n" +
-//                    "    show-document-button='{{showDocumentCount}}'>\n" +
-//                    "</{{name}}>";
-//                code = code.replace(/{{name}}/g, this.localName);
-//                code = code.replace(/{{showTitle}}/g, this.showTitle);
-//                code = code.replace(/{{title}}/g, this.title);
-//                code = code.replace(/{{showGridButton}}/g, this.showGridButton);
-//                code = code.replace(/{{showListButton}}/g, this.showListButton);
-//                code = code.replace(/{{showPreviewButton}}/g, this.showPreviewButton);
-//                code = code.replace(/{{showUploadButton}}/g, this.showUploadButton);
-//                code = code.replace(/{{showDownloadButton}}/g, this.showDownloadButton);
-//                code = code.replace(/{{showDeleteButton}}/g, this.showDeleteButton);
-//                code = code.replace(/{{showDocumentCount}}/g, this.showDocumentCount);
-//                this.code = code;
+                this.fire("settings-property-changed");
             },
 
         });

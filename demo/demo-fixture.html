@@ -38,6 +38,7 @@ limitations under the License.
 <link rel="import" href="../../ft-element-demo/ft-element-demo.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../ft-document-panel-settings.html">
 <link rel="import" href="../ft-document-panel.html">
 <link rel="import" href="ft-document-panel-settings-editor.html">
 
@@ -62,6 +63,8 @@ A panel that displays a list of FileThis documents
             }
         </style>
 
+        <ft-document-panel-settings></ft-document-panel-settings>
+
         <ft-element-demo
                 name="ft-document-panel"
                 class="flex"
@@ -70,34 +73,18 @@ A panel that displays a list of FileThis documents
 
             <!-- Settings -->
             <ft-document-panel-settings-editor
-                    slot="config"
-                    style="height:100%; padding:20px; "
-                    show-title="{{showTitle}}"
-                    title="{{title}}"
-                    show-grid-button="{{showGridButton}}"
-                    show-list-button="{{showListButton}}"
-                    show-preview-button="{{showPreviewButton}}"
-                    show-upload-button="{{showUploadButton}}"
-                    show-download-button="{{showDownloadButton}}"
-                    show-delete-button="{{showDeleteButton}}"
-                    show-document-count-button="{{showDocumentCountButton}}">
+                slot="config"
+                style="height:100%; padding:20px; "
+            >
             </ft-document-panel-settings-editor>
 
             <!-- Panel -->
             <ft-document-panel
-                    slot="instance"
-                    id="panel"
-                    style="width:100%; height:100%; "
-                    show-title="[[showTitle]]"
-                    title="[[title]]"
-                    show-grid-button="[[showGridButton]]"
-                    show-list-button="[[showListButton]]"
-                    show-preview-button="[[showPreviewButton]]"
-                    show-upload-button="[[showUploadButton]]"
-                    show-download-button="[[showDownloadButton]]"
-                    show-delete-button="[[showDeleteButton]]"
-                    show-document-count="[[showDocumentCountButton]]"
-                    code="{{code}}">
+                slot="instance"
+                id="panel"
+                style="width:100%; height:100%; "
+                code="{{code}}"
+            >
             </ft-document-panel>
 
         </ft-element-demo>
@@ -112,57 +99,6 @@ A panel that displays a list of FileThis documents
 
             properties:
             {
-                showTitle:
-                {
-                    type: Boolean,
-                    value: true
-                },
-                title:
-                {
-                    type: String,
-                    value: "Documents"
-                },
-                showGridButton:
-                {
-                    type: Boolean,
-                    value: true
-                },
-
-                showListButton:
-                {
-                    type: Boolean,
-                    value: true
-                },
-
-                showPreviewButton:
-                {
-                    type: Boolean,
-                    value: true
-                },
-
-                showUploadButton:
-                {
-                    type: Boolean,
-                    value: true
-                },
-
-                showDownloadButton:
-                {
-                    type: Boolean,
-                    value: true
-                },
-
-                showDeleteButton:
-                {
-                    type: Boolean,
-                    value: true
-                },
-
-                showDocumentCountButton:
-                {
-                    type: Boolean,
-                    value: true
-                },
                 code:
                 {
                     type: String,
