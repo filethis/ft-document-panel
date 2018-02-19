@@ -157,40 +157,70 @@ limitations under the License.
             this.fire("internal-settings-changed");
         },
 
+        generateImports: function()
+        {
+            if (!this._hasSettings())
+                return "";
+
+            var imports = "<link rel=\"import\" href=\"../bower_components/ft-document-panel/ft-document-panel-settings.html\">\n";
+            return imports;
+        },
+
         generateSettings: function()
         {
+            if (!this._hasSettings())
+                return "";
+
             var attributes = "";
             if (this.showHeading !== true)
-                attributes += "\n    showHeading=false";
+                attributes += "\n    show-heading=false";
             if (this.heading !== "Documents")
                 attributes += "\n    heading='" + this.heading + "'";
             if (this.showGridButton !== true)
-                attributes += "\n    showGridButton=false";
+                attributes += "\n    show-grid-button=false";
             if (this.showListButton !== true)
-                attributes += "\n    showListButton=false";
+                attributes += "\n    show-list-button=false";
             if (this.showPreviewButton !== true)
-                attributes += "\n    showPreviewButton=false";
+                attributes += "\n    show-preview-button=false";
             if (this.showUploadButton !== true)
-                attributes += "\n    showUploadButton=false";
+                attributes += "\n    show-upload-button=false";
             if (this.showDownloadButton !== true)
-                attributes += "\n    showDownloadButton=false";
+                attributes += "\n    show-download-button=false";
             if (this.showDeleteButton !== true)
-                attributes += "\n    showDeleteButton=false";
+                attributes += "\n    show-delete-button=false";
             if (this.showDocumentCount !== true)
-                attributes += "\n    showDocumentCount=false";
-
-            if (attributes.length === 0)
-                return "";
+                attributes += "\n    show-document-count=false";
 
             var settings = "";
-
-            settings += "\n<link rel=\"import\" href=\"../bower_components/ft-document-panel/ft-document-panel-settings.html\">\n";
 
             settings += "\n<ft-document-panel-settings ";
             settings += attributes;
             settings += ">\n</ft-document-panel-settings>\n";
 
             return settings;
+        },
+
+        _hasSettings: function()
+        {
+            if (this.showHeading !== true)
+                return true;
+            if (this.heading !== "Documents")
+                return true;
+            if (this.showGridButton !== true)
+                return true;
+            if (this.showListButton !== true)
+                return true;
+            if (this.showPreviewButton !== true)
+                return true;
+            if (this.showUploadButton !== true)
+                return true;
+            if (this.showDownloadButton !== true)
+                return true;
+            if (this.showDeleteButton !== true)
+                return true;
+            if (this.showDocumentCount !== true)
+                return true;
+            return false;
         },
     }
 
