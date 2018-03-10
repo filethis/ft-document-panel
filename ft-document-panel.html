@@ -43,10 +43,38 @@ This element displays a list of FileThis document resources. Above the list is a
 
         <style>
             :host {
-                display:block;
-                overflow:hidden;
+                display: block;
+                overflow: hidden;
                 @apply --layout-vertical;
                 @apply --ft-document-panel;
+            }
+            .heading {
+                font-family: Arial;
+                font-size: 14pt;
+                @apply --ft-document-panel-heading;
+            }
+            .button-bar {
+                height: 60px;
+                padding-left: 16px;
+                padding-right: 15px;
+                border-bottom: 1px solid #DDD;
+                @apply --ft-document-panel-button-bar;
+            }
+            .button {
+                margin-right: 5px;
+                @apply --ft-document-panel-button;
+            }
+            .document-count {
+                font-family: Arial;
+                font-size: 14pt;
+                @apply --ft-document-panel-document-count;
+            }
+            .views {
+                background-color: white;
+                @apply --ft-document-panel-views;
+            }
+            .preview {
+                @apply --ft-document-panel-preview;
             }
         </style>
 
@@ -63,15 +91,15 @@ This element displays a list of FileThis document resources. Above the list is a
 
         <!-- Button bar -->
         <div
-                id="buttonBar"
-                class="layout horizontal center"
-                hidden$="[[!_showButtonBar]]"
-                style="height:60px; padding-left:16px; padding-right:15px; border-bottom:1px solid #DDD;">
-
+            id="buttonBar"
+            class="button-bar layout horizontal center"
+            hidden$="[[!_showButtonBar]]"
+        >
             <!-- Heading -->
             <iron-label
-                    hidden$="[[!showHeading]]"
-                    style="font-family:Arial; font-size:14pt; ">
+                class="heading"
+                hidden$="[[!showHeading]]"
+            >
                 [[heading]]
             </iron-label>
 
@@ -80,33 +108,36 @@ This element displays a list of FileThis document resources. Above the list is a
 
             <!-- Grid button -->
             <ft-labeled-icon-button
-                    id="defaultServerButton"
-                    icon="apps"
-                    label="Grid"
-                    hidden$="[[!showGridButton]]"
-                    style$="margin-right:5px;"
-                    on-tap="_onViewAsGridButtonClicked">
+                id="defaultServerButton"
+                class="button"
+                icon="apps"
+                label="Grid"
+                hidden$="[[!showGridButton]]"
+                on-tap="_onViewAsGridButtonClicked"
+            >
             </ft-labeled-icon-button>
 
             <!-- List button -->
             <ft-labeled-icon-button
-                    id="listButton"
-                    icon="view-headline"
-                    label="List"
-                    hidden$="[[!showListButton]]"
-                    style$="margin-right:5px;"
-                    on-tap="_onViewAsListButtonClicked">
+                id="listButton"
+                class="button"
+                icon="view-headline"
+                label="List"
+                hidden$="[[!showListButton]]"
+                on-tap="_onViewAsListButtonClicked"
+            >
             </ft-labeled-icon-button>
 
             <!-- Preview button -->
             <ft-labeled-icon-button
-                    id="previewButton"
-                    icon="visibility"
-                    label="Preview"
-                    disabled="[[!_haveSelection]]"
-                    hidden$="[[!showPreviewButton]]"
-                    style$="margin-right:5px;"
-                    on-tap="_onPreviewButtonClicked">
+                id="previewButton"
+                class="button"
+                icon="visibility"
+                label="Preview"
+                disabled="[[!_haveSelection]]"
+                hidden$="[[!showPreviewButton]]"
+                on-tap="_onPreviewButtonClicked"
+            >
             </ft-labeled-icon-button>
 
             <!-- View button group spacer -->
@@ -114,23 +145,25 @@ This element displays a list of FileThis document resources. Above the list is a
 
             <!-- Upload button -->
             <ft-labeled-icon-button
-                    id="uploadButton"
-                    icon="file-upload"
-                    label="Upload"
-                    hidden$="[[!showUploadButton]]"
-                    style$="margin-right:5px;"
-                    on-tap="_onUploadButtonClicked">
+                id="uploadButton"
+                class="button"
+                icon="file-upload"
+                label="Upload"
+                hidden$="[[!showUploadButton]]"
+                on-tap="_onUploadButtonClicked"
+            >
             </ft-labeled-icon-button>
 
             <!-- Download button -->
             <ft-labeled-icon-button
-                    id="downloadButton"
-                    icon="file-download"
-                    label="Down"
-                    disabled="[[!_haveSelection]]"
-                    hidden$="[[!showDownloadButton]]"
-                    style$="margin-right:5px;"
-                    on-tap="_onDownloadButtonClicked">
+                id="downloadButton"
+                class="button"
+                icon="file-download"
+                label="Down"
+                disabled="[[!_haveSelection]]"
+                hidden$="[[!showDownloadButton]]"
+                on-tap="_onDownloadButtonClicked"
+            >
             </ft-labeled-icon-button>
 
             <!-- Upload/download button group spacer -->
@@ -138,13 +171,14 @@ This element displays a list of FileThis document resources. Above the list is a
 
             <!-- Delete button -->
             <ft-labeled-icon-button
-                    id="deleteButton"
-                    icon="delete"
-                    label="Delete"
-                    disabled="[[!_haveSelection]]"
-                    hidden$="[[!showDeleteButton]]"
-                    style$="margin-right:5px;"
-                    on-tap="_onDeleteButtonClicked">
+                id="deleteButton"
+                class="button"
+                icon="delete"
+                label="Delete"
+                disabled="[[!_haveSelection]]"
+                hidden$="[[!showDeleteButton]]"
+                on-tap="_onDeleteButtonClicked"
+            >
             </ft-labeled-icon-button>
 
             <!-- Upload/download button group spacer -->
@@ -152,9 +186,10 @@ This element displays a list of FileThis document resources. Above the list is a
 
             <!-- Document count -->
             <iron-label
-                    id="documentCount"
-                    hidden$="[[!showDocumentCount]]"
-                    style="font-family:Arial; font-size:14pt; ">
+                id="documentCount"
+                class="document-count"
+                hidden$="[[!showDocumentCount]]"
+            >
                 [[documentCount]]
             </iron-label>
 
@@ -173,33 +208,34 @@ This element displays a list of FileThis document resources. Above the list is a
 
         <!-- Views -->
         <iron-pages
-                id="views"
-                class="flex layout vertical"
-                style="background-color:white; "
-                attr-for-selected="id"
-                selected="[[selectedView]]">
-
+            id="views"
+            class="views flex layout vertical"
+            attr-for-selected="id"
+            selected="[[selectedView]]"
+        >
             <!-- Grid -->
             <ft-document-grid
-                    id="grid"
-                    class="flex"
-                    documents="[[documents]]"
-                    selected-document="{{selectedDocument}}">
+                id="grid"
+                class="flex"
+                documents="[[documents]]"
+                selected-document="{{selectedDocument}}"
+            >
             </ft-document-grid>
 
             <!-- List -->
             <ft-document-list
-                    id="list"
-                    class="flex"
-                    documents="[[documents]]"
-                    selected-document="{{selectedDocument}}">
+                id="list"
+                class="flex"
+                documents="[[documents]]"
+                selected-document="{{selectedDocument}}"
+            >
             </ft-document-list>
 
             <!-- Preview -->
             <div
-                    id="preview"
-                    class="flex layout vertical center">
-
+                id="preview"
+                class="preview flex layout vertical center"
+            >
                 <div style="height:100px;"></div>
 
                 <iron-label style="font-size:24pt">
