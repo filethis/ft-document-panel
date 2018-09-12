@@ -34,7 +34,7 @@ limitations under the License.
     FileThis.DocumentPanelSettingsBehavior = {
 
         observers:[
-            '_onInternalSettingsChanged(showHeading, heading, showGridButton, showListButton, showPreviewButton, showUploadButton, showDownloadButton, showDeleteButton, showDocumentCount)',
+            '_onInternalSettingsChanged(ftDocumentPanelShowHeading, ftDocumentPanelHeading, ftDocumentPanelShowGridButton, ftDocumentPanelShowListButton, ftDocumentPanelShowPreviewButton, ftDocumentPanelShowUploadButton, ftDocumentPanelShowDownloadButton, ftDocumentPanelShowDeleteButton, ftDocumentPanelShowDocumentCount)',
         ],
 
         properties: {
@@ -46,17 +46,20 @@ limitations under the License.
              *
              * @type {boolean}
              */
-            showHeading:
+            ftDocumentPanelShowHeading:
             {
                 type: Object,
-                value: true
+                value: true,
+                notify: true,
+
             },
 
-            /** Heading to display when "showHeading" is true. */
-            heading:
+            /** Heading to display when "ftDocumentPanelShowHeading" is true. */
+            ftDocumentPanelHeading:
             {
                 type: String,
-                value: "Documents"
+                value: "Documents",
+                notify: true,
             },
 
             /**
@@ -66,10 +69,11 @@ limitations under the License.
              *
              * @type {boolean}
              */
-            showGridButton:
+            ftDocumentPanelShowGridButton:
             {
                 type: Object,
-                value: true
+                value: true,
+                notify: true,
             },
 
             /**
@@ -79,10 +83,11 @@ limitations under the License.
              *
              * @type {boolean}
              */
-            showListButton:
+            ftDocumentPanelShowListButton:
             {
                 type: Object,
-                value: true
+                value: true,
+                notify: true,
             },
 
             /**
@@ -92,10 +97,11 @@ limitations under the License.
              *
              * @type {boolean}
              */
-            showPreviewButton:
+            ftDocumentPanelShowPreviewButton:
             {
                 type: Object,
-                value: true
+                value: true,
+                notify: true,
             },
 
             /**
@@ -105,10 +111,11 @@ limitations under the License.
              *
              * @type {boolean}
              */
-            showUploadButton:
+            ftDocumentPanelShowUploadButton:
             {
                 type: Object,
-                value: true
+                value: true,
+                notify: true,
             },
 
             /**
@@ -118,10 +125,11 @@ limitations under the License.
              *
              * @type {boolean}
              */
-            showDownloadButton:
+            ftDocumentPanelShowDownloadButton:
             {
                 type: Object,
-                value: true
+                value: true,
+                notify: true,
             },
 
             /**
@@ -131,10 +139,11 @@ limitations under the License.
              *
              * @type {boolean}
              */
-            showDeleteButton:
+            ftDocumentPanelShowDeleteButton:
             {
                 type: Object,
-                value: true
+                value: true,
+                notify: true,
             },
 
             /**
@@ -144,12 +153,39 @@ limitations under the License.
              *
              * @type {boolean}
              */
-            showDocumentCount:
+            ftDocumentPanelShowDocumentCount:
             {
                 type: Object,
-                value: true
+                value: true,
+                notify: true,
             },
 
+        },
+
+        ready: function()
+        {
+            this._applySettings();
+        },
+
+        _applySettings: function()
+        {
+            this._applySettingToProperty("ft-document-panel-show-heading", "ftDocumentPanelShowHeading");
+            this._applySettingToProperty("ft-document-panel-heading", "ftDocumentPanelHeading");
+            this._applySettingToProperty("ft-document-panel-show-grid-button", "ftDocumentPanelShowGridButton");
+            this._applySettingToProperty("ft-document-panel-show-list-button", "ftDocumentPanelShowListButton");
+            this._applySettingToProperty("ft-document-panel-show-preview-button", "ftDocumentPanelShowPreviewButton");
+            this._applySettingToProperty("ft-document-panel-show-upload-button", "ftDocumentPanelShowUploadButton");
+            this._applySettingToProperty("ft-document-panel-show-download-button", "ftDocumentPanelShowDownloadButton");
+            this._applySettingToProperty("ft-document-panel-show-delete-button", "ftDocumentPanelShowDeleteButton");
+            this._applySettingToProperty("ft-document-panel-show-document-count", "ftDocumentPanelShowDocumentCount");
+        },
+
+        _applySettingToProperty: function(settingName, propertyName)
+        {
+            var meta = new Polymer.IronMeta({type: "setting", key: settingName});
+            var value = meta.value;
+            if (value !== undefined)
+                this.set(propertyName, value);
         },
 
         _onInternalSettingsChanged: function(to)
@@ -157,68 +193,63 @@ limitations under the License.
             this.fire("internal-settings-changed");
         },
 
-        generateImports: function()
+        generateSettingsElement: function()
         {
             if (!this._hasSettings())
                 return "";
 
-            var imports = "<link rel=\"import\" href=\"../bower_components/ft-document-panel/ft-document-panel-settings.html\">\n";
-            return imports;
-        },
+            var settings = "\n<ft-document-panel-settings";
 
-        generateSettings: function()
-        {
-            if (!this._hasSettings())
-                return "";
+            // Keep alphabetized
+            if (this.ftDocumentPanelHeading !== "Documents")
+                settings += this._buildSettingAttribute("ft-document-panel-heading", this.ftDocumentPanelHeading);
+            if (this.ftDocumentPanelShowDeleteButton !== true)
+                settings += this._buildSettingAttribute("ft-document-panel-show-delete-button", "false");
+            if (this.ftDocumentPanelShowDocumentCount !== true)
+                settings += this._buildSettingAttribute("ft-document-panel-show-document-count", "false");
+            if (this.ftDocumentPanelShowDownloadButton !== true)
+                settings += this._buildSettingAttribute("ft-document-panel-show-download-button", "false");
+            if (this.ftDocumentPanelShowGridButton !== true)
+                settings += this._buildSettingAttribute("ft-document-panel-ft-document-panel-show-grid-button", "false");
+            if (this.ftDocumentPanelShowHeading !== true)
+                settings += this._buildSettingAttribute("ft-document-panel-show-heading", "false");
+            if (this.ftDocumentPanelShowListButton !== true)
+                settings += this._buildSettingAttribute("ft-document-panel-show-list-button", "false");
+            if (this.ftDocumentPanelShowPreviewButton !== true)
+                settings += this._buildSettingAttribute("ft-document-panel-show-preview-button", "false");
+            if (this.ftDocumentPanelShowUploadButton !== true)
+                settings += this._buildSettingAttribute("ft-document-panel-show-upload-button", "false");
 
-            var attributes = "";
-            if (this.showHeading !== true)
-                attributes += '\n    show-heading="false"';
-            if (this.heading !== "Documents")
-                attributes += '\n    heading="' + this.heading + '"';
-            if (this.showGridButton !== true)
-                attributes += '\n    show-grid-button="false"';
-            if (this.showListButton !== true)
-                attributes += '\n    show-list-button="false"';
-            if (this.showPreviewButton !== true)
-                attributes += '\n    show-preview-button="false"';
-            if (this.showUploadButton !== true)
-                attributes += '\n    show-upload-button="false"';
-            if (this.showDownloadButton !== true)
-                attributes += '\n    show-download-button="false"';
-            if (this.showDeleteButton !== true)
-                attributes += '\n    show-delete-button="false"';
-            if (this.showDocumentCount !== true)
-                attributes += '\n    show-document-count="false"';
-
-            var settings = "";
-
-            settings += "\n<ft-document-panel-settings ";
-            settings += attributes;
-            settings += ">\n</ft-document-panel-settings>\n";
+            settings += ">\n</ft-document-panel-settings\n";
 
             return settings;
         },
 
+        // TODO: Factor out from here and copies in other classes
+        _buildSettingAttribute: function(propertyName, propertyValue)
+        {
+            return '\n    ' + propertyName + '="' + propertyValue + '"';
+        },
+
         _hasSettings: function()
         {
-            if (this.showHeading !== true)
+            if (this.ftDocumentPanelShowHeading !== true)
                 return true;
-            if (this.heading !== "Documents")
+            if (this.ftDocumentPanelHeading !== "Documents")
                 return true;
-            if (this.showGridButton !== true)
+            if (this.ftDocumentPanelShowGridButton !== true)
                 return true;
-            if (this.showListButton !== true)
+            if (this.ftDocumentPanelShowListButton !== true)
                 return true;
-            if (this.showPreviewButton !== true)
+            if (this.ftDocumentPanelShowPreviewButton !== true)
                 return true;
-            if (this.showUploadButton !== true)
+            if (this.ftDocumentPanelShowUploadButton !== true)
                 return true;
-            if (this.showDownloadButton !== true)
+            if (this.ftDocumentPanelShowDownloadButton !== true)
                 return true;
-            if (this.showDeleteButton !== true)
+            if (this.ftDocumentPanelShowDeleteButton !== true)
                 return true;
-            if (this.showDocumentCount !== true)
+            if (this.ftDocumentPanelShowDocumentCount !== true)
                 return true;
             return false;
         },

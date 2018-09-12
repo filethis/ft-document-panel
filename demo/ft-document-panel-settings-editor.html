@@ -16,7 +16,6 @@ limitations under the License.
 
 
 <!-- Imports -->
-<link rel="import" href="../../ft-global-variable/ft-global-variable.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../iron-input/iron-input.html">
 <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
@@ -54,24 +53,13 @@ This element defines a source grid example that allows experimentation with conf
         </style>
 
         <!-- Settings -->
-        <ft-global-variable name="ft-document-panel-showHeading" value="{{showHeading}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-heading" value="{{heading}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-grid-button" value="{{showGridButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-list-button" value="{{showListButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-preview-button" value="{{showPreviewButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-upload-button" value="{{showUploadButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-download-button" value="{{showDownloadButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-delete-button" value="{{showDeleteButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-document-count" value="{{showDocumentCount}}"></ft-global-variable>
-
-        <!-- Settings -->
-        <paper-checkbox checked="{{showHeading}}">
+        <paper-checkbox checked="{{ftDocumentPanelShowHeading}}">
             Show Heading
         </paper-checkbox>
 
         <paper-input
             id="headingField"
-            value="{{heading}}"
+            value="{{ftDocumentPanelHeading}}"
             label="Heading:"
             style="width:200px;"
         >
@@ -79,31 +67,31 @@ This element defines a source grid example that allows experimentation with conf
 
         <div style="height:20px"></div>
 
-        <paper-checkbox checked="{{showGridButton}}">
+        <paper-checkbox checked="{{ftDocumentPanelShowGridButton}}">
             Show Grid Button
         </paper-checkbox>
 
-        <paper-checkbox checked="{{showListButton}}">
+        <paper-checkbox checked="{{ftDocumentPanelShowListButton}}">
             Show List Button
         </paper-checkbox>
 
-        <paper-checkbox checked="{{showPreviewButton}}">
+        <paper-checkbox checked="{{ftDocumentPanelShowPreviewButton}}">
             Show Preview Button
         </paper-checkbox>
 
-        <paper-checkbox checked="{{showUploadButton}}">
+        <paper-checkbox checked="{{ftDocumentPanelShowUploadButton}}">
             Show Upload Button
         </paper-checkbox>
 
-        <paper-checkbox checked="{{showDownloadButton}}" style="width:190px; ">
+        <paper-checkbox checked="{{ftDocumentPanelShowDownloadButton}}" style="width:190px; ">
             Show Download Button
         </paper-checkbox>
 
-        <paper-checkbox checked="{{showDeleteButton}}">
+        <paper-checkbox checked="{{ftDocumentPanelShowDeleteButton}}">
             Show Delete Button
         </paper-checkbox>
 
-        <paper-checkbox checked="{{showDocumentCount}}" style="width:190px; ">
+        <paper-checkbox checked="{{ftDocumentPanelShowDocumentCount}}" style="width:190px; ">
             Show Document Count
         </paper-checkbox>
 

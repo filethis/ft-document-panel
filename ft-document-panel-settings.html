@@ -1,5 +1,5 @@
 <!--
-Copyright 2018 FileThis, Inc.
+Copyright 2017 FileThis, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,48 +15,44 @@ limitations under the License.
 -->
 
 
-<link rel="import" href="../ft-global-variable/ft-global-variable.html">
+<!-- Imports -->
+<link rel="import" href="../iron-meta/iron-meta.html">
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="ft-document-panel-settings-behavior.html">
 
-<!--
-`<ft-document-panel-settings>`
 
-Settings applied to the ft-document-panel.
-
-@demo
--->
 <dom-module id="ft-document-panel-settings">
 
     <script>
-        Polymer({
 
+        Polymer
+        ({
             is: 'ft-document-panel-settings',
 
-            behaviors: [FileThis.DocumentPanelSettingsBehavior],
+            behaviors: [
+                FileThis.DocumentPanelSettingsBehavior,
+            ],
 
-            attached: function()
+            ready: function()
             {
-                // setTimeout(function()
-                // {
-                //     this._initializeSettings();
-                // }.bind(this), 1000);
-                this.async(this._initializeSettings);
+                this._storeSettings();
             },
 
-            _initializeSettings: function()
+            _storeSettings: function()
             {
-                window.FileThis.FtGlobalVariables.propagateValue("ft-document-panel-showHeading", this.showHeading);
-                window.FileThis.FtGlobalVariables.propagateValue("ft-document-panel-heading", this.heading);
-                window.FileThis.FtGlobalVariables.propagateValue("ft-document-panel-show-grid-button", this.showGridButton);
-                window.FileThis.FtGlobalVariables.propagateValue("ft-document-panel-show-list-button", this.showListButton);
-                window.FileThis.FtGlobalVariables.propagateValue("ft-document-panel-show-preview-button", this.showPreviewButton);
-                window.FileThis.FtGlobalVariables.propagateValue("ft-document-panel-show-upload-button", this.showUploadButton);
-                window.FileThis.FtGlobalVariables.propagateValue("ft-document-panel-show-download-button", this.showDownloadButton);
-                window.FileThis.FtGlobalVariables.propagateValue("ft-document-panel-show-delete-button", this.showDeleteButton);
-                window.FileThis.FtGlobalVariables.propagateValue("ft-document-panel-show-document-count", this.showDocumentCount);
+                new Polymer.IronMeta({type: "setting", key: "ft-document-panel-show-heading", value: this.ftDocumentPanelShowHeading});
+                new Polymer.IronMeta({type: "setting", key: "ft-document-panel-heading", value: this.ftDocumentPanelHeading});
+                new Polymer.IronMeta({type: "setting", key: "ft-document-panel-show-grid-button", value: this.ftDocumentPanelShowGridButton});
+                new Polymer.IronMeta({type: "setting", key: "ft-document-panel-show-list-button", value: this.ftDocumentPanelShowListButton});
+                new Polymer.IronMeta({type: "setting", key: "ft-document-panel-show-preview-button", value: this.ftDocumentPanelShowPreviewButton});
+                new Polymer.IronMeta({type: "setting", key: "ft-document-panel-show-upload-button", value: this.ftDocumentPanelShowUploadButton});
+                new Polymer.IronMeta({type: "setting", key: "ft-document-panel-show-download-button", value: this.ftDocumentPanelShowDownloadButton});
+                new Polymer.IronMeta({type: "setting", key: "ft-document-panel-show-delete-button", value: this.ftDocumentPanelShowDeleteButton});
+                new Polymer.IronMeta({type: "setting", key: "ft-document-panel-show-document-count", value: this.ftDocumentPanelShowDocumentCount});
             },
 
         });
+
     </script>
+
 </dom-module>

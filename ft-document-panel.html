@@ -18,7 +18,6 @@ limitations under the License.
 <link rel="import" href="../ft-confirmation-dialog/ft-confirmation-dialog.html">
 <link rel="import" href="../ft-document-grid/ft-document-grid.html">
 <link rel="import" href="../ft-document-list/ft-document-list.html">
-<link rel="import" href="../ft-global-variable/ft-global-variable.html">
 <link rel="import" href="../ft-labeled-icon-button/ft-labeled-icon-button.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
@@ -78,17 +77,6 @@ This element displays a list of FileThis document resources. Above the list is a
             }
         </style>
 
-        <!-- Settings -->
-        <ft-global-variable name="ft-document-panel-showHeading" value="{{showHeading}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-heading" value="{{heading}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-grid-button" value="{{showGridButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-list-button" value="{{showListButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-preview-button" value="{{showPreviewButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-upload-button" value="{{showUploadButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-download-button" value="{{showDownloadButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-delete-button" value="{{showDeleteButton}}"></ft-global-variable>
-        <ft-global-variable name="ft-document-panel-show-document-count" value="{{showDocumentCount}}"></ft-global-variable>
-
         <!-- Button bar -->
         <div
             id="buttonBar"
@@ -98,9 +86,9 @@ This element displays a list of FileThis document resources. Above the list is a
             <!-- Heading -->
             <iron-label
                 class="heading"
-                hidden$="[[!showHeading]]"
+                hidden$="[[!ftDocumentPanelShowHeading]]"
             >
-                [[heading]]
+                [[ftDocumentPanelHeading]]
             </iron-label>
 
             <!-- Heading spacer -->
@@ -112,7 +100,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 class="button"
                 icon="apps"
                 label="Grid"
-                hidden$="[[!showGridButton]]"
+                hidden$="[[!ftDocumentPanelShowGridButton]]"
                 on-tap="_onViewAsGridButtonClicked"
             >
             </ft-labeled-icon-button>
@@ -123,7 +111,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 class="button"
                 icon="view-headline"
                 label="List"
-                hidden$="[[!showListButton]]"
+                hidden$="[[!ftDocumentPanelShowListButton]]"
                 on-tap="_onViewAsListButtonClicked"
             >
             </ft-labeled-icon-button>
@@ -135,7 +123,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 icon="visibility"
                 label="Preview"
                 disabled="[[!_haveSelection]]"
-                hidden$="[[!showPreviewButton]]"
+                hidden$="[[!ftDocumentPanelShowPreviewButton]]"
                 on-tap="_onPreviewButtonClicked"
             >
             </ft-labeled-icon-button>
@@ -149,7 +137,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 class="button"
                 icon="file-upload"
                 label="Upload"
-                hidden$="[[!showUploadButton]]"
+                hidden$="[[!ftDocumentPanelShowUploadButton]]"
                 on-tap="_onUploadButtonClicked"
             >
             </ft-labeled-icon-button>
@@ -161,7 +149,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 icon="file-download"
                 label="Down"
                 disabled="[[!_haveSelection]]"
-                hidden$="[[!showDownloadButton]]"
+                hidden$="[[!ftDocumentPanelShowDownloadButton]]"
                 on-tap="_onDownloadButtonClicked"
             >
             </ft-labeled-icon-button>
@@ -176,7 +164,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 icon="delete"
                 label="Delete"
                 disabled="[[!_haveSelection]]"
-                hidden$="[[!showDeleteButton]]"
+                hidden$="[[!ftDocumentPanelShowDeleteButton]]"
                 on-tap="_onDeleteButtonClicked"
             >
             </ft-labeled-icon-button>
@@ -188,7 +176,7 @@ This element displays a list of FileThis document resources. Above the list is a
             <iron-label
                 id="documentCount"
                 class="document-count"
-                hidden$="[[!showDocumentCount]]"
+                hidden$="[[!ftDocumentPanelShowDocumentCount]]"
             >
                 [[documentCount]]
             </iron-label>
@@ -287,7 +275,7 @@ This element displays a list of FileThis document resources. Above the list is a
 
             observers:
             [
-                "_onSettingsPropertyChanged(showHeading, heading, showGridButton, showListButton, showPreviewButton, showUploadButton, showDownloadButton, showDeleteButton, showDocumentCount)"
+                "_onSettingsPropertyChanged(ftDocumentPanelShowHeading, ftDocumentPanelHeading, ftDocumentPanelShowGridButton, ftDocumentPanelShowListButton, ftDocumentPanelShowPreviewButton, ftDocumentPanelShowUploadButton, ftDocumentPanelShowDownloadButton, ftDocumentPanelShowDeleteButton, ftDocumentPanelShowDocumentCount)"
             ],
 
             properties: {
@@ -458,35 +446,35 @@ This element displays a list of FileThis document resources. Above the list is a
 
             _canShowButtonBar: function()
             {
-                if (this.showHeading)
+                if (this.ftDocumentPanelShowHeading)
                     return true;
                 if (this._someViewButtonShown())
                     return true;
                 if (this._someUploadDownloadButtonShown())
                     return true;
-                if (this.showDeleteButton)
+                if (this.ftDocumentPanelShowDeleteButton)
                     return true;
-                if (this.showDocumentCount)
+                if (this.ftDocumentPanelShowDocumentCount)
                     return true;
                 return false;
             },
 
             _someViewButtonShown: function()
             {
-                if (this.showGridButton)
+                if (this.ftDocumentPanelShowGridButton)
                     return true;
-                if (this.showListButton)
+                if (this.ftDocumentPanelShowListButton)
                     return true;
-                if (this.showPreviewButton)
+                if (this.ftDocumentPanelShowPreviewButton)
                     return true;
                 return false;
             },
 
             _someUploadDownloadButtonShown: function()
             {
-                if (this.showUploadButton)
+                if (this.ftDocumentPanelShowUploadButton)
                     return true;
-                if (this.showDownloadButton)
+                if (this.ftDocumentPanelShowDownloadButton)
                     return true;
                 return false;
             },
@@ -499,7 +487,7 @@ This element displays a list of FileThis document resources. Above the list is a
                 var viewButtonGroupSpacerWidth = 0;
                 var uploadDownloadButtonGroupSpacerWidth = 0;
 
-                if (this.showHeading)
+                if (this.ftDocumentPanelShowHeading)
                     headingSpacerWidth = groupSpacerWidth;
                 if (this._someViewButtonShown())
                     viewButtonGroupSpacerWidth = groupSpacerWidth;
