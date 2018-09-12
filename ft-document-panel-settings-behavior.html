@@ -162,9 +162,12 @@ limitations under the License.
 
         },
 
-        ready: function()
+        attached: function()
         {
-            this._applySettings();
+            this.async(function()
+            {
+                this._applySettings();
+            });
         },
 
         _applySettings: function()
@@ -198,7 +201,7 @@ limitations under the License.
             if (!this._hasSettings())
                 return "";
 
-            var settings = "\n<ft-document-panel-settings";
+            var settings = "<ft-document-panel-settings";
 
             // Keep alphabetized
             if (this.ftDocumentPanelHeading !== "Documents")
@@ -210,7 +213,7 @@ limitations under the License.
             if (this.ftDocumentPanelShowDownloadButton !== true)
                 settings += this._buildSettingAttribute("ft-document-panel-show-download-button", "false");
             if (this.ftDocumentPanelShowGridButton !== true)
-                settings += this._buildSettingAttribute("ft-document-panel-ft-document-panel-show-grid-button", "false");
+                settings += this._buildSettingAttribute("ft-document-panel-show-grid-button", "false");
             if (this.ftDocumentPanelShowHeading !== true)
                 settings += this._buildSettingAttribute("ft-document-panel-show-heading", "false");
             if (this.ftDocumentPanelShowListButton !== true)
@@ -220,7 +223,7 @@ limitations under the License.
             if (this.ftDocumentPanelShowUploadButton !== true)
                 settings += this._buildSettingAttribute("ft-document-panel-show-upload-button", "false");
 
-            settings += ">\n</ft-document-panel-settings\n";
+            settings += ">\n</ft-document-panel-settings>\n";
 
             return settings;
         },
