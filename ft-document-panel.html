@@ -26,6 +26,8 @@ limitations under the License.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../shadycss/apply-shim.html">
 <link rel="import" href="ft-document-panel-settings-behavior.html">
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
+
 
 <!--
 `<ft-document-panel>`
@@ -76,6 +78,36 @@ This element displays a list of FileThis document resources. Above the list is a
                 @apply --ft-document-panel-preview;
             }
         </style>
+
+        <app-localstorage-document key="ftDocumentPanelShowHeading" data="{{ftDocumentPanelShowHeading}}">
+        </app-localstorage-document>
+
+        <app-localstorage-document key="ftDocumentPanelHeading" data="{{ftDocumentPanelHeading}}">
+        </app-localstorage-document>
+
+        <app-localstorage-document key="ftDocumentPanelShowGridButton" data="{{ftDocumentPanelShowGridButton}}">
+        </app-localstorage-document>
+
+        <app-localstorage-document key="ftDocumentPanelShowListButton" data="{{ftDocumentPanelShowListButton}}">
+        </app-localstorage-document>
+
+        <app-localstorage-document key="ftDocumentPanelViewAs" data="{{ftDocumentPanelViewAs}}">
+        </app-localstorage-document>
+
+        <app-localstorage-document key="ftDocumentPanelShowPreviewButton" data="{{ftDocumentPanelShowPreviewButton}}">
+        </app-localstorage-document>
+
+        <app-localstorage-document key="ftDocumentPanelShowUploadButton" data="{{ftDocumentPanelShowUploadButton}}">
+        </app-localstorage-document>
+
+        <app-localstorage-document key="ftDocumentPanelShowDownloadButton" data="{{ftDocumentPanelShowDownloadButton}}">
+        </app-localstorage-document>
+
+        <app-localstorage-document key="ftDocumentPanelShowDeleteButton" data="{{ftDocumentPanelShowDeleteButton}}">
+        </app-localstorage-document>
+
+        <app-localstorage-document key="ftDocumentPanelShowDocumentCount" data="{{ftDocumentPanelShowDocumentCount}}">
+        </app-localstorage-document>
 
         <!-- Button bar -->
         <div
@@ -356,6 +388,25 @@ This element displays a list of FileThis document resources. Above the list is a
                     value: false
                 },
 
+            },
+
+            ready()
+            {
+                this.addEventListener('ft-document-panel-view-as-changed-in-behavior', this._onFtDocumentPanelViewAsChangedInBehavior);
+            },
+
+            _onFtDocumentPanelViewAsChangedInBehavior: function(event)
+            {
+                var viewAs = event.detail.to;
+                switch (viewAs)
+                {
+                    case "grid":
+                        this.selectedView = "grid";
+                        break;
+                    case "list":
+                        this.selectedView = "list";
+                        break;
+                }
             },
 
             _documentsChanged: function(to, from)
