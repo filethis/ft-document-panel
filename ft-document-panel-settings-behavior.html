@@ -34,7 +34,7 @@ limitations under the License.
     FileThis.DocumentPanelSettingsBehavior = {
 
         observers:[
-            '_onInternalSettingsChanged(ftDocumentPanelShowHeading, ftDocumentPanelHeading, ftDocumentPanelShowGridButton, ftDocumentPanelShowListButton, ftDocumentPanelShowPreviewButton, ftDocumentPanelShowUploadButton, ftDocumentPanelShowDownloadButton, ftDocumentPanelShowDeleteButton, ftDocumentPanelShowDocumentCount)',
+            '_onInternalSettingsChanged(ftDocumentPanelShowHeading, ftDocumentPanelHeading, ftDocumentPanelShowGridButton, ftDocumentPanelShowListButton, ftDocumentPanelViewAsInitial, ftDocumentPanelShowPreviewButton, ftDocumentPanelShowUploadButton, ftDocumentPanelShowDownloadButton, ftDocumentPanelShowDeleteButton, ftDocumentPanelShowDocumentCount)',
         ],
 
         properties: {
@@ -93,12 +93,12 @@ limitations under the License.
             /**
              * Initial view of documents. Either "grid" or "list".
              */
-            ftDocumentPanelViewAs:
+            ftDocumentPanelViewAsInitial:
                 {
                     type: String,
                     value: "grid",
                     notify: true,
-                    observer: "_onFtDocumentPanelViewAsChanged"
+                    observer: "_onFtDocumentPanelViewAsInitialChanged",
                 },
 
             /**
@@ -173,6 +173,11 @@ limitations under the License.
 
         },
 
+        _onFtDocumentPanelViewAsInitialChanged: function(to, from)
+        {
+            this.fire("ft-document-panel-view-as-initial-changed-in-behavior");
+        },
+
         attached: function()
         {
             this.async(function()
@@ -181,7 +186,7 @@ limitations under the License.
                 this._applySettingToProperty("ft-document-panel-heading", "ftDocumentPanelHeading");
                 this._applySettingToProperty("ft-document-panel-show-grid-button", "ftDocumentPanelShowGridButton");
                 this._applySettingToProperty("ft-document-panel-show-list-button", "ftDocumentPanelShowListButton");
-                this._applySettingToProperty("ft-document-panel-view-as", "ftDocumentPanelViewAs");
+                this._applySettingToProperty("ft-document-panel-view-as-initial", "ftDocumentPanelViewAsInitial");
                 this._applySettingToProperty("ft-document-panel-show-preview-button", "ftDocumentPanelShowPreviewButton");
                 this._applySettingToProperty("ft-document-panel-show-upload-button", "ftDocumentPanelShowUploadButton");
                 this._applySettingToProperty("ft-document-panel-show-download-button", "ftDocumentPanelShowDownloadButton");
@@ -198,11 +203,6 @@ limitations under the License.
                 this.set(propertyName, value);
         },
 
-        _onFtDocumentPanelViewAsChanged: function(to, from)
-        {
-            this.dispatchEvent(new CustomEvent('ft-document-panel-view-as-changed-in-behavior', {detail: {to: to, from: from}}));
-        },
-
         _onInternalSettingsChanged: function(to)
         {
             this.fire("internal-settings-changed");
@@ -210,7 +210,7 @@ limitations under the License.
 
         generateSettingsElement: function()
         {
-            if (!this._hasSettings())
+            if (!this.hasSettings())
                 return "";
 
             var settings = "<ft-document-panel-settings";
@@ -230,6 +230,8 @@ limitations under the License.
                 settings += this._buildSettingAttribute("ft-document-panel-show-heading", "false");
             if (this.ftDocumentPanelShowListButton !== true)
                 settings += this._buildSettingAttribute("ft-document-panel-show-list-button", "false");
+            if (this.ftDocumentPanelViewAsInitial !== "grid")
+                settings += this._buildSettingAttribute("ft-document-panel-view-as-initial", "list");
             if (this.ftDocumentPanelShowPreviewButton !== true)
                 settings += this._buildSettingAttribute("ft-document-panel-show-preview-button", "false");
             if (this.ftDocumentPanelShowUploadButton !== true)
@@ -246,7 +248,7 @@ limitations under the License.
             return '\n    ' + propertyName + '="' + propertyValue + '"';
         },
 
-        _hasSettings: function()
+        hasSettings: function()
         {
             if (this.ftDocumentPanelShowHeading !== true)
                 return true;
@@ -255,6 +257,8 @@ limitations under the License.
             if (this.ftDocumentPanelShowGridButton !== true)
                 return true;
             if (this.ftDocumentPanelShowListButton !== true)
+                return true;
+            if (this.ftDocumentPanelViewAsInitial !== "grid")
                 return true;
             if (this.ftDocumentPanelShowPreviewButton !== true)
                 return true;
@@ -268,6 +272,21 @@ limitations under the License.
                 return true;
             return false;
         },
+
+        revertToDefaults: function()
+        {
+            this.ftDocumentPanelShowHeading = true;
+            this.ftDocumentPanelHeading = "Documents";
+            this.ftDocumentPanelShowGridButton = true;
+            this.ftDocumentPanelShowListButton = true;
+            this.ftDocumentPanelViewAsInitial = "grid";
+            this.ftDocumentPanelShowPreviewButton = true;
+            this.ftDocumentPanelShowUploadButton = true;
+            this.ftDocumentPanelShowDownloadButton = true;
+            this.ftDocumentPanelShowDeleteButton = true;
+            this.ftDocumentPanelShowDocumentCount = true;
+        },
+
     }
 
 </script>

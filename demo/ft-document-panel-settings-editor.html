@@ -16,9 +16,13 @@ limitations under the License.
 
 
 <!-- Imports -->
+<link rel="import" href="../../neon-animation/web-animations.html">  <!-- Need this for paper-dropdown-menu ! -->
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../iron-input/iron-input.html">
 <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../paper-listbox/paper-listbox.html">
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../ft-document-panel-settings-behavior.html">
 
@@ -95,6 +99,23 @@ This element defines a source grid example that allows experimentation with conf
             Show Document Count
         </paper-checkbox>
 
+        <!-- View as menu -->
+        <paper-dropdown-menu
+            id="viewAsMenu"
+            label="Initially View As"
+            style="width:85px; margin-bottom: 0; "
+        >
+            <paper-listbox
+                class="dropdown-content"
+                slot="dropdown-content"
+                selected="{{_initialViewAsIndex}}"
+            >
+                <paper-item>Grid</paper-item>
+                <paper-item>List</paper-item>
+            </paper-listbox>
+        </paper-dropdown-menu>
+
+
     </template>
 
     <script>
@@ -104,6 +125,48 @@ This element defines a source grid example that allows experimentation with conf
             is: 'ft-document-panel-settings-editor',
 
             behaviors: [FileThis.DocumentPanelSettingsBehavior],
+
+            listeners:
+                {
+                    'ft-document-panel-view-as-initial-changed-in-behavior': '_onFtDocumentPanelViewAsInitialChangedInBehavior',
+                },
+
+            properties:
+                {
+                    _initialViewAsIndex:
+                        {
+                            type: Number,
+                            value: 0,
+                            notify: true,
+                            observer: "_onInitialViewAsIndexChanged",
+                        },
+                },
+
+            _onInitialViewAsIndexChanged: function(to, from)
+            {
+                switch (this._initialViewAsIndex)
+                {
+                    case 0:
+                        this.ftDocumentPanelViewAsInitial = "grid";
+                        break;
+                    case 1:
+                        this.ftDocumentPanelViewAsInitial = "list";
+                        break;
+                }
+            },
+
+            _onFtDocumentPanelViewAsInitialChangedInBehavior: function()
+            {
+                switch (this.ftDocumentPanelViewAsInitial)
+                {
+                    case "grid":
+                        this._initialViewAsIndex = 0;
+                        break;
+                    case "list":
+                        this._initialViewAsIndex = 1;
+                        break;
+                }
+            },
 
         });
 

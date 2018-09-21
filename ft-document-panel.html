@@ -91,7 +91,7 @@ This element displays a list of FileThis document resources. Above the list is a
         <app-localstorage-document key="ftDocumentPanelShowListButton" data="{{ftDocumentPanelShowListButton}}">
         </app-localstorage-document>
 
-        <app-localstorage-document key="ftDocumentPanelViewAs" data="{{ftDocumentPanelViewAs}}">
+        <app-localstorage-document key="ftDocumentPanelViewAsInitial" data="{{ftDocumentPanelViewAsInitial}}">
         </app-localstorage-document>
 
         <app-localstorage-document key="ftDocumentPanelShowPreviewButton" data="{{ftDocumentPanelShowPreviewButton}}">
@@ -310,6 +310,11 @@ This element displays a list of FileThis document resources. Above the list is a
                 "_onSettingsPropertyChanged(ftDocumentPanelShowHeading, ftDocumentPanelHeading, ftDocumentPanelShowGridButton, ftDocumentPanelShowListButton, ftDocumentPanelShowPreviewButton, ftDocumentPanelShowUploadButton, ftDocumentPanelShowDownloadButton, ftDocumentPanelShowDeleteButton, ftDocumentPanelShowDocumentCount)"
             ],
 
+            listeners:
+                {
+                    'ft-document-panel-view-as-initial-changed-in-behavior': '_onFtDocumentPanelViewAsInitialChangedInBehavior',
+                },
+
             properties: {
 
                 /** The list of documents resources to be displayed. */
@@ -390,23 +395,10 @@ This element displays a list of FileThis document resources. Above the list is a
 
             },
 
-            ready()
+            _onFtDocumentPanelViewAsInitialChangedInBehavior: function()
             {
-                this.addEventListener('ft-document-panel-view-as-changed-in-behavior', this._onFtDocumentPanelViewAsChangedInBehavior);
-            },
-
-            _onFtDocumentPanelViewAsChangedInBehavior: function(event)
-            {
-                var viewAs = event.detail.to;
-                switch (viewAs)
-                {
-                    case "grid":
-                        this.selectedView = "grid";
-                        break;
-                    case "list":
-                        this.selectedView = "list";
-                        break;
-                }
+                var viewAs = this.ftDocumentPanelViewAsInitial;
+                this.selectedView = viewAs;
             },
 
             _documentsChanged: function(to, from)
