@@ -208,44 +208,44 @@ limitations under the License.
             this.fire("internal-settings-changed");
         },
 
-        generateSettingsElement: function()
+        generateSettingsElement: function(indent)
         {
             if (!this.hasSettings())
                 return "";
 
-            var settings = "<ft-document-panel-settings";
+            var settings = indent + "<ft-document-panel-settings";
 
             // Keep alphabetized
             if (this.ftDocumentPanelHeading !== "Documents")
-                settings += this._buildSettingAttribute("ft-document-panel-heading", this.ftDocumentPanelHeading);
+                settings += this._buildSettingAttribute("ft-document-panel-heading", this.ftDocumentPanelHeading, indent);
             if (this.ftDocumentPanelShowDeleteButton !== true)
-                settings += this._buildSettingAttribute("ft-document-panel-show-delete-button", "false");
+                settings += this._buildSettingAttribute("ft-document-panel-show-delete-button", "false", indent);
             if (this.ftDocumentPanelShowDocumentCount !== true)
-                settings += this._buildSettingAttribute("ft-document-panel-show-document-count", "false");
+                settings += this._buildSettingAttribute("ft-document-panel-show-document-count", "false", indent);
             if (this.ftDocumentPanelShowDownloadButton !== true)
-                settings += this._buildSettingAttribute("ft-document-panel-show-download-button", "false");
+                settings += this._buildSettingAttribute("ft-document-panel-show-download-button", "false", indent);
             if (this.ftDocumentPanelShowGridButton !== true)
-                settings += this._buildSettingAttribute("ft-document-panel-show-grid-button", "false");
+                settings += this._buildSettingAttribute("ft-document-panel-show-grid-button", "false", indent);
             if (this.ftDocumentPanelShowHeading !== true)
-                settings += this._buildSettingAttribute("ft-document-panel-show-heading", "false");
+                settings += this._buildSettingAttribute("ft-document-panel-show-heading", "false", indent);
             if (this.ftDocumentPanelShowListButton !== true)
-                settings += this._buildSettingAttribute("ft-document-panel-show-list-button", "false");
+                settings += this._buildSettingAttribute("ft-document-panel-show-list-button", "false", indent);
             if (this.ftDocumentPanelViewAsInitial !== "grid")
-                settings += this._buildSettingAttribute("ft-document-panel-view-as-initial", "list");
+                settings += this._buildSettingAttribute("ft-document-panel-view-as-initial", "list", indent);
             if (this.ftDocumentPanelShowPreviewButton !== true)
-                settings += this._buildSettingAttribute("ft-document-panel-show-preview-button", "false");
+                settings += this._buildSettingAttribute("ft-document-panel-show-preview-button", "false", indent);
             if (this.ftDocumentPanelShowUploadButton !== true)
-                settings += this._buildSettingAttribute("ft-document-panel-show-upload-button", "false");
+                settings += this._buildSettingAttribute("ft-document-panel-show-upload-button", "false", indent);
 
-            settings += ">\n</ft-document-panel-settings>\n";
+            settings += ">\n" + indent + "</ft-document-panel-settings>\n";
 
             return settings;
         },
 
         // TODO: Factor out from here and copies in other classes
-        _buildSettingAttribute: function(propertyName, propertyValue)
+        _buildSettingAttribute: function(propertyName, propertyValue, indent)
         {
-            return '\n    ' + propertyName + '="' + propertyValue + '"';
+            return '\n' + indent + '    ' + propertyName + '="' + propertyValue + '"';
         },
 
         hasSettings: function()
