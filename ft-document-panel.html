@@ -18,6 +18,7 @@ limitations under the License.
 <link rel="import" href="../ft-confirmation-dialog/ft-confirmation-dialog.html">
 <link rel="import" href="../ft-document-grid/ft-document-grid.html">
 <link rel="import" href="../ft-document-list/ft-document-list.html">
+<link rel="import" href="../ft-document-panel/ft-document-panel-settings-behavior.html">
 <link rel="import" href="../ft-labeled-icon-button/ft-labeled-icon-button.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
@@ -25,8 +26,6 @@ limitations under the License.
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../shadycss/apply-shim.html">
-<link rel="import" href="ft-document-panel-settings-behavior.html">
-<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 
 
 <!--
@@ -78,36 +77,6 @@ This element displays a list of FileThis document resources. Above the list is a
                 @apply --ft-document-panel-preview;
             }
         </style>
-
-        <app-localstorage-document key="ftDocumentPanelShowHeading" data="{{ftDocumentPanelShowHeading}}">
-        </app-localstorage-document>
-
-        <app-localstorage-document key="ftDocumentPanelHeading" data="{{ftDocumentPanelHeading}}">
-        </app-localstorage-document>
-
-        <app-localstorage-document key="ftDocumentPanelShowGridButton" data="{{ftDocumentPanelShowGridButton}}">
-        </app-localstorage-document>
-
-        <app-localstorage-document key="ftDocumentPanelShowListButton" data="{{ftDocumentPanelShowListButton}}">
-        </app-localstorage-document>
-
-        <app-localstorage-document key="ftDocumentPanelViewAsInitial" data="{{ftDocumentPanelViewAsInitial}}">
-        </app-localstorage-document>
-
-        <app-localstorage-document key="ftDocumentPanelShowPreviewButton" data="{{ftDocumentPanelShowPreviewButton}}">
-        </app-localstorage-document>
-
-        <app-localstorage-document key="ftDocumentPanelShowUploadButton" data="{{ftDocumentPanelShowUploadButton}}">
-        </app-localstorage-document>
-
-        <app-localstorage-document key="ftDocumentPanelShowDownloadButton" data="{{ftDocumentPanelShowDownloadButton}}">
-        </app-localstorage-document>
-
-        <app-localstorage-document key="ftDocumentPanelShowDeleteButton" data="{{ftDocumentPanelShowDeleteButton}}">
-        </app-localstorage-document>
-
-        <app-localstorage-document key="ftDocumentPanelShowDocumentCount" data="{{ftDocumentPanelShowDocumentCount}}">
-        </app-localstorage-document>
 
         <!-- Button bar -->
         <div
