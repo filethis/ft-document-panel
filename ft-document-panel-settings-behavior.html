@@ -111,7 +111,7 @@ limitations under the License.
             ftDocumentPanelShowPreviewButton:
             {
                 type: Object,
-                value: true,
+                value: false,
                 notify: true,
             },
 
@@ -125,7 +125,7 @@ limitations under the License.
             ftDocumentPanelShowUploadButton:
             {
                 type: Object,
-                value: true,
+                value: false,
                 notify: true,
             },
 
@@ -139,7 +139,7 @@ limitations under the License.
             ftDocumentPanelShowDownloadButton:
             {
                 type: Object,
-                value: true,
+                value: false,
                 notify: true,
             },
 
@@ -153,7 +153,7 @@ limitations under the License.
             ftDocumentPanelShowDeleteButton:
             {
                 type: Object,
-                value: true,
+                value: false,
                 notify: true,
             },
 
@@ -228,11 +228,11 @@ limitations under the License.
             // Keep alphabetized
             if (this.ftDocumentPanelHeading !== "Documents")
                 settings += this._buildSettingAttribute("ft-document-panel-heading", this.ftDocumentPanelHeading, indent);
-            if (this.ftDocumentPanelShowDeleteButton !== true)
+            if (this.ftDocumentPanelShowDeleteButton !== false)
                 settings += this._buildSettingAttribute("ft-document-panel-show-delete-button", "false", indent);
             if (this.ftDocumentPanelShowDocumentCount !== true)
                 settings += this._buildSettingAttribute("ft-document-panel-show-document-count", "false", indent);
-            if (this.ftDocumentPanelShowDownloadButton !== true)
+            if (this.ftDocumentPanelShowDownloadButton !== false)
                 settings += this._buildSettingAttribute("ft-document-panel-show-download-button", "false", indent);
             if (this.ftDocumentPanelShowGridButton !== true)
                 settings += this._buildSettingAttribute("ft-document-panel-show-grid-button", "false", indent);
@@ -242,9 +242,9 @@ limitations under the License.
                 settings += this._buildSettingAttribute("ft-document-panel-show-list-button", "false", indent);
             if (this.ftDocumentPanelViewAsInitial !== "grid")
                 settings += this._buildSettingAttribute("ft-document-panel-view-as-initial", "list", indent);
-            if (this.ftDocumentPanelShowPreviewButton !== true)
+            if (this.ftDocumentPanelShowPreviewButton !== false)
                 settings += this._buildSettingAttribute("ft-document-panel-show-preview-button", "false", indent);
-            if (this.ftDocumentPanelShowUploadButton !== true)
+            if (this.ftDocumentPanelShowUploadButton !== false)
                 settings += this._buildSettingAttribute("ft-document-panel-show-upload-button", "false", indent);
 
             settings += ">\n" + indent + "</ft-document-panel-settings>\n";
@@ -270,13 +270,13 @@ limitations under the License.
                 return true;
             if (this.ftDocumentPanelViewAsInitial !== "grid")
                 return true;
-            if (this.ftDocumentPanelShowPreviewButton !== true)
+            if (this.ftDocumentPanelShowPreviewButton !== false)
                 return true;
-            if (this.ftDocumentPanelShowUploadButton !== true)
+            if (this.ftDocumentPanelShowUploadButton !== false)
                 return true;
-            if (this.ftDocumentPanelShowDownloadButton !== true)
+            if (this.ftDocumentPanelShowDownloadButton !== false)
                 return true;
-            if (this.ftDocumentPanelShowDeleteButton !== true)
+            if (this.ftDocumentPanelShowDeleteButton !== false)
                 return true;
             if (this.ftDocumentPanelShowDocumentCount !== true)
                 return true;
@@ -290,10 +290,10 @@ limitations under the License.
             this.ftDocumentPanelShowGridButton = true;
             this.ftDocumentPanelShowListButton = true;
             this.ftDocumentPanelViewAsInitial = "grid";
-            this.ftDocumentPanelShowPreviewButton = true;
-            this.ftDocumentPanelShowUploadButton = true;
-            this.ftDocumentPanelShowDownloadButton = true;
-            this.ftDocumentPanelShowDeleteButton = true;
+            this.ftDocumentPanelShowPreviewButton = false;
+            this.ftDocumentPanelShowUploadButton = false;
+            this.ftDocumentPanelShowDownloadButton = false;
+            this.ftDocumentPanelShowDeleteButton = false;
             this.ftDocumentPanelShowDocumentCount = true;
         },
 
