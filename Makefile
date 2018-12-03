@@ -1,7 +1,7 @@
 # Project configuration
 NAME=ft-document-panel
 SRC_DIR=
-VERSION=1.0.30
+VERSION=1.0.31
 LOCAL_PORT=3639
 GITHUB_USER=filethis
 GITHUB_USER_ABBREV=ft
