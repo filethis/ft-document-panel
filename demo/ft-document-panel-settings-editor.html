@@ -23,6 +23,8 @@ limitations under the License.
 <link rel="import" href="../../paper-item/paper-item.html">
 <link rel="import" href="../../paper-listbox/paper-listbox.html">
 <link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../polymer/lib/elements/custom-style.html">
+<link rel="import" href="../../shadycss/apply-shim.html">
 <link rel="import" href="../ft-document-panel-settings-behavior.html">
 
 
@@ -47,13 +49,14 @@ This element defines a source grid example that allows experimentation with conf
             }
         </style>
 
-        <style is="custom-style">
-
-            paper-checkbox {
-                width: 165px;
-                margin-bottom: 16px;
-            }
-        </style>
+        <custom-style>
+            <style>
+                paper-checkbox {
+                    width: 165px;
+                    margin-bottom: 16px;
+                }
+            </style>
+        </custom-style>
 
         <!-- Settings -->
         <paper-checkbox checked="{{ftDocumentPanelShowHeading}}">
