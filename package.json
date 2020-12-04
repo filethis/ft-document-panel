@@ -1,7 +1,7 @@
 {
   "description": "A panel that displays a list of FileThis documents",
-  "name": "filethis/ft-document-panel",
-  "version": "filethis/1.0.31",
+  "name": "ft-document-panel",
+  "version": "1.0.31",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
