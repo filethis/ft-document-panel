@@ -41,7 +41,6 @@ A panel that displays a list of FileThis documents
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
-import 'ft-element-demo/ft-element-demo.js';
 
 import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
 import '@polymer/polymer/polymer-legacy.js';
@@ -61,6 +60,8 @@ Polymer
             :host {
                 display: block;
                 overflow: hidden;
+                width:600px;
+                height:800px;
                 @apply --layout-vertical;
             }
         </style>
@@ -69,9 +70,10 @@ Polymer
         <ft-document-panel-settings ft-document-panel-heading="These are your documents" ft-document-panel-show-download-button="false">
         </ft-document-panel-settings>
 
-        <ft-element-demo name="ft-document-panel" class="flex" show-config="true">
+        <ft-element-demo name="ft-document-panel" class="flex" show-config="true" >
+
             <!-- Settings -->
-            <ft-document-panel-settings-editor slot="config" style="height:100%; padding:20px; " ft-document-panel-show-heading="{{ftDocumentPanelShowHeading}}" ft-document-panel-heading="{{ftDocumentPanelHeading}}" ft-document-panel-show-grid-button="{{ftDocumentPanelShowGridButton}}" ft-document-panel-show-list-button="{{ftDocumentPanelShowListButton}}" ft-document-panel-view-as-initial="{{ftDocumentPanelViewAsInitial}}" ft-document-panel-show-preview-button="{{ftDocumentPanelShowPreviewButton}}" ft-document-panel-show-upload-button="{{ftDocumentPanelShowUploadButton}}" ft-document-panel-show-download-button="{{ftDocumentPanelShowDownloadButton}}" ft-document-panel-show-delete-button="{{ftDocumentPanelShowDeleteButton}}" ft-document-panel-show-document-count="{{ftDocumentPanelShowDocumentCount}}">
+            <ft-document-panel-settings-editor slot="config" style="padding:20px; " ft-document-panel-show-heading="{{ftDocumentPanelShowHeading}}" ft-document-panel-heading="{{ftDocumentPanelHeading}}" ft-document-panel-show-grid-button="{{ftDocumentPanelShowGridButton}}" ft-document-panel-show-list-button="{{ftDocumentPanelShowListButton}}" ft-document-panel-view-as-initial="{{ftDocumentPanelViewAsInitial}}" ft-document-panel-show-preview-button="{{ftDocumentPanelShowPreviewButton}}" ft-document-panel-show-upload-button="{{ftDocumentPanelShowUploadButton}}" ft-document-panel-show-download-button="{{ftDocumentPanelShowDownloadButton}}" ft-document-panel-show-delete-button="{{ftDocumentPanelShowDeleteButton}}" ft-document-panel-show-document-count="{{ftDocumentPanelShowDocumentCount}}">
             </ft-document-panel-settings-editor>
 
             <!-- Panel -->

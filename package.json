@@ -11,18 +11,28 @@
   "main": "ft-document-panel.js",
   "dependencies": {
     "@polymer/iron-input": "^3.0.0",
+    "@polymer/iron-label": "^3.0.0",
+    "@polymer/iron-list": "^3.0.0",
     "@polymer/iron-pages": "^3.0.0",
+    "@polymer/paper-button": "^3.0.0",
     "@polymer/paper-checkbox": "^3.0.0",
     "@polymer/paper-dropdown-menu": "^3.0.0",
-    "@polymer/paper-item": "^3.0.0",
     "@polymer/paper-icon-button": "^3.0.0",
-    "@polymer/polymer": "^3.0.0"
+    "@polymer/paper-item": "^3.0.0",
+    "@polymer/paper-listbox": "^3.0.0",
+    "@polymer/polymer": "^3.0.0",
+    "ft-confirmation-dialog": "file:.yalc/ft-confirmation-dialog",
+    "ft-document-grid": "file:.yalc/ft-document-grid",
+    "ft-document-grid-item": "file:.yalc/ft-document-grid-item",
+    "ft-document-list": "file:.yalc/ft-document-list",
+    "ft-document-list-item": "file:.yalc/ft-document-list-item",
+    "ft-labeled-icon-button": "file:.yalc/ft-labeled-icon-button"
   },
   "devDependencies": {
     "@polymer/iron-component-page": "^4.0.0",
     "@polymer/iron-demo-helpers": "^3.0.0",
     "@polymer/iron-test-helpers": "^3.0.0",
-    "wct-browser-legacy": "^1.0.1",
-    "@webcomponents/webcomponentsjs": "^2.0.0"
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "wct-browser-legacy": "^1.0.1"
   }
 }

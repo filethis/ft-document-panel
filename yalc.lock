@@ -1,0 +1,29 @@
+{
+  "version": "v1",
+  "packages": {
+    "ft-confirmation-dialog": {
+      "signature": "67e8a0df66a69ab6b858b258ced2a11c",
+      "file": true
+    },
+    "ft-document-grid": {
+      "signature": "f49a5184d1f37e760cd73be4f9cf54cc",
+      "file": true
+    },
+    "ft-document-list": {
+      "signature": "0eb8a1527c4ac1718cb65f4620a6652b",
+      "file": true
+    },
+    "ft-labeled-icon-button": {
+      "signature": "3bdce6f831e164c93c1d90acdd7db85f",
+      "file": true
+    },
+    "ft-document-grid-item": {
+      "signature": "112cf8541e64b3945fccd6ac01a8dff7",
+      "file": true
+    },
+    "ft-document-list-item": {
+      "signature": "44690db08f5e124be1c90f2db987c9e5",
+      "file": true
+    }
+  }
+}
