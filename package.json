@@ -1,7 +1,7 @@
 {
   "description": "A panel that displays a list of FileThis documents",
   "name": "@filethis/ft-document-panel",
-  "version": "1.0.31",
+  "version": "3.0.0",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
@@ -38,12 +38,12 @@
     "@polymer/paper-item": "^3.0.0",
     "@polymer/paper-listbox": "^3.0.0",
     "@polymer/polymer": "^3.0.0",
-    "@filethis/ft-confirmation-dialog": "^1.0.24",
-    "@filethis/ft-document-grid": "^1.0.26",
-    "@filethis/ft-document-grid-item": "^1.0.24",
-    "@filethis/ft-document-list": "^1.0.29",
-    "@filethis/ft-document-list-item": "^1.0.29",
-    "@filethis/ft-labeled-icon-button": "^1.0.21"
+    "@filethis/ft-confirmation-dialog": "^3.0.0",
+    "@filethis/ft-document-grid": "^3.0.0",
+    "@filethis/ft-document-grid-item": "^3.0.0",
+    "@filethis/ft-document-list": "^3.0.0",
+    "@filethis/ft-document-list-item": "^3.0.0",
+    "@filethis/ft-labeled-icon-button": "^3.0.0"
   },
   "devDependencies": {
     "@polymer/iron-component-page": "^4.0.0",
