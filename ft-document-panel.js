@@ -25,12 +25,12 @@ This element displays a list of FileThis document resources. Above the list is a
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
-import 'ft-confirmation-dialog/ft-confirmation-dialog.js';
+import '@filethis/ft-confirmation-dialog/ft-confirmation-dialog.js';
 
-import 'ft-document-grid/ft-document-grid.js';
-import 'ft-document-list/ft-document-list.js';
+import '@filethis/ft-document-grid/ft-document-grid.js';
+import '@filethis/ft-document-list/ft-document-list.js';
 import './ft-document-panel-settings-behavior.js';
-import 'ft-labeled-icon-button/ft-labeled-icon-button.js';
+import '@filethis/ft-labeled-icon-button/ft-labeled-icon-button.js';
 import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-pages/iron-pages.js';

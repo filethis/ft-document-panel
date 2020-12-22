@@ -1,6 +1,6 @@
 {
   "description": "A panel that displays a list of FileThis documents",
-  "name": "ft-document-panel",
+  "name": "@filethis/ft-document-panel",
   "version": "1.0.31",
   "resolutions": {
     "inherits": "2.0.3",
@@ -15,7 +15,6 @@
     "*.make",
     "*.png",
     "*.svg",
-    ".yalc/",
     "data/",
     "demo/",
     "test/",
@@ -39,12 +38,12 @@
     "@polymer/paper-item": "^3.0.0",
     "@polymer/paper-listbox": "^3.0.0",
     "@polymer/polymer": "^3.0.0",
-    "ft-confirmation-dialog": "file:.yalc/ft-confirmation-dialog",
-    "ft-document-grid": "file:.yalc/ft-document-grid",
-    "ft-document-grid-item": "file:.yalc/ft-document-grid-item",
-    "ft-document-list": "file:.yalc/ft-document-list",
-    "ft-document-list-item": "file:.yalc/ft-document-list-item",
-    "ft-labeled-icon-button": "file:.yalc/ft-labeled-icon-button"
+    "@filethis/ft-confirmation-dialog": "^1.0.24",
+    "@filethis/ft-document-grid": "^1.0.26",
+    "@filethis/ft-document-grid-item": "^1.0.24",
+    "@filethis/ft-document-list": "^1.0.29",
+    "@filethis/ft-document-list-item": "^1.0.29",
+    "@filethis/ft-labeled-icon-button": "^1.0.21"
   },
   "devDependencies": {
     "@polymer/iron-component-page": "^4.0.0",
